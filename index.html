@@ -441,7 +441,7 @@
                 primaryCare: document.getElementById('rPrimaryCare').value,
                 symptoms: document.getElementById('rSymptoms').value,
                 status: 'កំពុងរង់ចាំ',
-                diagnosis: '', // Empty diagnosis signals Cloud that it's waiting
+                diagnosis: '', 
                 prescriptions: []
             };
 
@@ -542,12 +542,10 @@
                 let prayer = document.getElementById('prayerNotes').value;
                 if(prayer) extraDetails.push(`អធិស្ឋាន: ${prayer}`);
 
-                // Merge all info into Diagnosis so it saves to Google Sheets seamlessly
                 patients[pIndex].diagnosis = baseDiag + (extraDetails.length > 0 ? " | " + extraDetails.join(' | ') : "");
                 patients[pIndex].prescriptions = selectedMeds;
                 patients[pIndex].status = 'បានព្យាបាលរួច';
 
-                // Send to Cloud
                 fetch(WEB_APP_URL, { method: "POST", body: JSON.stringify({ action: "save", patient: patients[pIndex] }) })
                     .then(() => fetchCloudData());
 
@@ -564,14 +562,17 @@
                 switchTab('records');
             }
         }
-function deletePatient(id) {
-    if(confirm('តើអ្នកពិតជាចង់លុបព័ត៌មានអ្នកជំងឺនេះមែនទេ?')) {
-        patients = patients.filter(p => p.id != id);
-        renderRecords();
-        updatePatientDropdown();
-        alert('លុបអ្នកជំងឺបានជោគជ័យ!');
-    }
-}
+
+        // មុខងារលុបអ្នកជំងឺ (Delete Patient)
+        function deletePatient(id) {
+            if(confirm('តើអ្នកពិតជាចង់លុបព័ត៌មានអ្នកជំងឺនេះមែនទេ?')) {
+                patients = patients.filter(p => p.id != id);
+                renderRecords();
+                updatePatientDropdown();
+                alert('លុបអ្នកជំងឺបានជោគជ័យ!');
+            }
+        }
+
         function renderRecords() {
             let container = document.getElementById('recordsList');
             document.getElementById('recordCount').innerText = patients.length;
@@ -596,7 +597,8 @@ function deletePatient(id) {
                         </div>
                         <div class="flex items-center space-x-2 space-x-reverse">
                             <span class="text-xs text-slate-400">${p.timestamp} (${p.date})</span>
-                            ${p.status === 'បានព្យាបាលរួច' ? `<button onclick="printPrescription(${p.id})" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded-xl text-xs font-semibold shadow-xs transition flex items-center space-x-1 space-x-reverse"><span>🖨️ បោះពុម្ពវេជ្ជបញ្ជា</span></button><button onclick="deletePatient(${p.id})" class="bg-rose-500 hover:bg-rose-600 text-white px-3 py-1.5 rounded-xl text-xs font-semibold shadow-xs transition flex items-center space-x-1 space-x-reverse"><span>🗑️ (លុប)</span></button>` : ''}
+                            ${p.status === 'បានព្យាបាលរួច' ? `<button onclick="printPrescription(${p.id})" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded-xl text-xs font-semibold shadow-xs transition flex items-center space-x-1 space-x-reverse"><span>🖨️ បោះពុម្ពវេជ្ជបញ្ជា</span></button>` : ''}
+                            <button onclick="deletePatient(${p.id})" class="bg-rose-500 hover:bg-rose-600 text-white px-3 py-1.5 rounded-xl text-xs font-semibold shadow-xs transition flex items-center space-x-1 space-x-reverse"><span>🗑️ (លុប)</span></button>
                         </div>
                     </div>
 
@@ -609,7 +611,7 @@ function deletePatient(id) {
 
                     ${p.diagnosis ? `
                     <div class="text-xs bg-indigo-50/60 p-3 rounded-xl border border-indigo-100 leading-relaxed">
-                        <b class="text-indigo-950 font-bold">រោគវិនិច្ឆ័យ និសសេវាកម្ម:</b><br>
+                        <b class="text-indigo-950 font-bold">រោគវិនិច្ឆ័យ និងសេវាកម្ម:</b><br>
                         <span class="font-bold text-indigo-900">${formattedDiag}</span>
                     </div>` : ''}
 
