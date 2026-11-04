@@ -564,7 +564,14 @@
                 switchTab('records');
             }
         }
-
+function deletePatient(id) {
+    if(confirm('តើអ្នកពិតជាចង់លុបព័ត៌មានអ្នកជំងឺនេះមែនទេ?')) {
+        patients = patients.filter(p => p.id != id);
+        renderRecords();
+        updatePatientDropdown();
+        alert('លុបអ្នកជំងឺបានជោគជ័យ!');
+    }
+}
         function renderRecords() {
             let container = document.getElementById('recordsList');
             document.getElementById('recordCount').innerText = patients.length;
@@ -589,7 +596,7 @@
                         </div>
                         <div class="flex items-center space-x-2 space-x-reverse">
                             <span class="text-xs text-slate-400">${p.timestamp} (${p.date})</span>
-                            ${p.status === 'បានព្យាបាលរួច' ? `<button onclick="printPrescription(${p.id})" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded-xl text-xs font-semibold shadow-xs transition flex items-center space-x-1 space-x-reverse"><span>🖨️ បោះពុម្ពវេជ្ជបញ្ជា</span></button>` : ''}
+                            ${p.status === 'បានព្យាបាលរួច' ? `<button onclick="printPrescription(${p.id})" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded-xl text-xs font-semibold shadow-xs transition flex items-center space-x-1 space-x-reverse"><span>🖨️ បោះពុម្ពវេជ្ជបញ្ជា</span></button><button onclick="deletePatient(${p.id})" class="bg-rose-500 hover:bg-rose-600 text-white px-3 py-1.5 rounded-xl text-xs font-semibold shadow-xs transition flex items-center space-x-1 space-x-reverse"><span>🗑️ (លុប)</span></button>` : ''}
                         </div>
                     </div>
 
