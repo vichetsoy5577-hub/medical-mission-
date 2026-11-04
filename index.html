@@ -104,8 +104,6 @@
                         </div>
                     </div>
 
-                    <!-- លុបប្រអប់រោគសញ្ញាចេញពីទីនេះហើយ -->
-
                     <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3.5 rounded-xl shadow-md transition text-sm flex items-center justify-center space-x-2 space-x-reverse">
                         <span>➕ រក្សាទុក និងបញ្ជូនទៅបន្ទប់ពិនិត្យ</span>
                     </button>
@@ -132,7 +130,7 @@
                 <form id="consultForm" onsubmit="saveConsultation(event)" class="space-y-6">
                     <input type="hidden" id="selectedPatientId">
 
-                    <!-- រោគសញ្ញា ឥឡូវត្រូវបានដាក់នៅទីនេះ -->
+                    <!-- រោគសញ្ញា -->
                     <div>
                         <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">រោគសញ្ញា ឬមូលហេតុមកពិនិត្យ (Symptoms / Reason) *</label>
                         <textarea id="cSymptoms" required rows="2" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm font-medium text-slate-900 focus:bg-white focus:outline-none" placeholder="ឧ. ឈឺក្បាល វិលមុខ ឈឺធ្មេញ ឬស្រវាំងភ្នែក..."></textarea>
@@ -442,7 +440,7 @@
                 hr: document.getElementById('rHR').value || 'N/A',
                 dept: document.getElementById('rDept').value,
                 primaryCare: document.getElementById('rPrimaryCare').value,
-                symptoms: '', // លែងមាននៅជំហានទី១ ទុកអោយគ្រូពេទ្យបញ្ចូលនៅជំហានទី២
+                symptoms: '', // ទុកអោយពេទ្យបញ្ចូលនៅជំហានទី២
                 status: 'កំពុងរង់ចាំ',
                 diagnosis: '', 
                 prescriptions: []
@@ -569,12 +567,20 @@
             }
         }
 
-        // មុខងារលុបអ្នកជំងឺ (Delete Patient)
+        // មុខងារលុបអ្នកជំងឺ (Delete Patient) ដែលបានកែប្រែបញ្ជូនទៅ Cloud
         function deletePatient(id) {
             if(confirm('តើអ្នកពិតជាចង់លុបព័ត៌មានអ្នកជំងឺនេះមែនទេ?')) {
+                // លុបពី Local
                 patients = patients.filter(p => p.id != id);
                 renderRecords();
                 updatePatientDropdown();
+                
+                // បញ្ជូនទៅលុបពី Google Sheets
+                fetch(WEB_APP_URL, { 
+                    method: "POST", 
+                    body: JSON.stringify({ action: "delete", id: id }) 
+                }).catch(err => console.error("Error deleting from cloud:", err));
+
                 alert('លុបអ្នកជំងឺបានជោគជ័យ!');
             }
         }
