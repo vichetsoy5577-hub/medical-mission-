@@ -104,6 +104,8 @@
                         </div>
                     </div>
 
+                    <!-- លុបប្រអប់រោគសញ្ញាចេញពីទីនេះហើយ -->
+
                     <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3.5 rounded-xl shadow-md transition text-sm flex items-center justify-center space-x-2 space-x-reverse">
                         <span>➕ រក្សាទុក និងបញ្ជូនទៅបន្ទប់ពិនិត្យ</span>
                     </button>
@@ -130,7 +132,7 @@
                 <form id="consultForm" onsubmit="saveConsultation(event)" class="space-y-6">
                     <input type="hidden" id="selectedPatientId">
 
-                    <!-- Symptoms moved to Section 2 -->
+                    <!-- រោគសញ្ញា ឥឡូវត្រូវបានដាក់នៅទីនេះ -->
                     <div>
                         <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">រោគសញ្ញា ឬមូលហេតុមកពិនិត្យ (Symptoms / Reason) *</label>
                         <textarea id="cSymptoms" required rows="2" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm font-medium text-slate-900 focus:bg-white focus:outline-none" placeholder="ឧ. ឈឺក្បាល វិលមុខ ឈឺធ្មេញ ឬស្រវាំងភ្នែក..."></textarea>
@@ -440,7 +442,7 @@
                 hr: document.getElementById('rHR').value || 'N/A',
                 dept: document.getElementById('rDept').value,
                 primaryCare: document.getElementById('rPrimaryCare').value,
-                symptoms: '', // ទុកឱ្យពេទ្យបញ្ចូលនៅជំហានទី២
+                symptoms: '', // លែងមាននៅជំហានទី១ ទុកអោយគ្រូពេទ្យបញ្ចូលនៅជំហានទី២
                 status: 'កំពុងរង់ចាំ',
                 diagnosis: '', 
                 prescriptions: []
@@ -484,7 +486,7 @@
                 dentalSec.classList.add('hidden');
                 eyeSec.classList.add('hidden');
                 document.getElementById('selectedPatientId').value = '';
-                document.getElementById('cSymptoms').value = ''; // បញ្ចេញទិន្នន័យចាស់
+                document.getElementById('cSymptoms').value = ''; 
                 document.querySelectorAll('input[name="tableMedCheck"]').forEach(cb => cb.checked = false);
                 return;
             }
@@ -492,7 +494,7 @@
             let p = patients.find(item => item.id == id);
             if(p) {
                 document.getElementById('selectedPatientId').value = p.id;
-                document.getElementById('cSymptoms').value = p.symptoms || ''; // ទាញយករោគសញ្ញាចាស់បើមាន
+                document.getElementById('cSymptoms').value = p.symptoms || ''; 
                 infoDiv.innerHTML = `អាយុ: ${p.age}ឆ្នាំ | ភេទ: ${p.gender} | សង្គ្រោះបឋម: ${p.primaryCare}`;
                 dentalSec.classList.add('hidden');
                 eyeSec.classList.add('hidden');
@@ -545,7 +547,7 @@
                 let prayer = document.getElementById('prayerNotes').value;
                 if(prayer) extraDetails.push(`អធិស្ឋាន: ${prayer}`);
 
-                patients[pIndex].symptoms = document.getElementById('cSymptoms').value; // រក្សាទុករោគសញ្ញាដែលវាយនៅជំហានទី២
+                patients[pIndex].symptoms = document.getElementById('cSymptoms').value; // រក្សាទុករោគសញ្ញាពីជំហានទី២
                 patients[pIndex].diagnosis = baseDiag + (extraDetails.length > 0 ? " | " + extraDetails.join(' | ') : "");
                 patients[pIndex].prescriptions = selectedMeds;
                 patients[pIndex].status = 'បានព្យាបាលរួច';
