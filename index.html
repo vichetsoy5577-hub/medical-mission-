@@ -61,7 +61,7 @@
                     <h2 class="text-lg font-bold text-slate-900">ជំហានទី១៖ ចុះឈ្មោះអ្នកជំងឺ និងការថែទាំបឋម</h2>
                 </div>
                 
-                <form id="registerForm" onsubmit="saveRegistration(event)" class="space-y-5">
+                <form id="registerForm" class="space-y-5">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         <div>
                             <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">ឈ្មោះអ្នកជំងឺ *</label>
@@ -104,7 +104,7 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3.5 rounded-xl shadow-md transition text-sm flex items-center justify-center space-x-2 space-x-reverse">
+                    <button type="button" onclick="saveRegistration(event)" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3.5 rounded-xl shadow-md transition text-sm flex items-center justify-center space-x-2 space-x-reverse">
                         <span>➕ រក្សាទុក និងបញ្ជូនទៅបន្ទប់ពិនិត្យ</span>
                     </button>
                 </form>
@@ -127,7 +127,7 @@
                     <div id="activePatientInfo" class="text-xs font-semibold text-slate-700 bg-white px-3 py-2 rounded-xl border border-indigo-100 shadow-sm w-full sm:w-auto"></div>
                 </div>
 
-                <form id="consultForm" onsubmit="saveConsultation(event)" class="space-y-6">
+                <form id="consultForm" class="space-y-6">
                     <input type="hidden" id="selectedPatientId">
 
                     <!-- រោគសញ្ញា -->
@@ -221,7 +221,7 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3.5 rounded-xl shadow-md transition text-sm">
+                    <button type="button" onclick="saveConsultation(event)" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3.5 rounded-xl shadow-md transition text-sm">
                         💾 រក្សាទុកការព្យាបាល និងវេជ្ជបញ្ជាទៅកាន់ Cloud
                     </button>
                 </form>
@@ -275,22 +275,19 @@
 
     <!-- Footer -->
     <footer class="bg-white border-t mt-auto py-4 text-center text-xs text-slate-500">
-        បេសកកម្មវេជ្ជសាស្ត្រ ទន្តសាស្ត្រ និងការថែទាំភ្នែក • Cloud Sync Version
+        បេសកកម្មចុះពិនិត្យព្យាបាលជំងឺ និងផ្សាយដំណឹងល្អ • Cloud Sync Version
     </footer>
 
     <!-- JavaScript Logic -->
     <script>
-        // =========================================================================
-        // ដាក់ WEB APP URL របស់អ្នកនៅទីនេះ (ខាងក្រោម)
-        // =========================================================================
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbw5fUtLpYRcq9YFH0xJQfotlMrWo9UbyEhZgwG4muXNDP9mrgh8E8M4GLUF7t24h3Fo/exec";
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxY_cTiYEOWrkcOxbf198mTYjOb28_AqSjNWMu4cJ2SXrHi4Nws4VJARJU9TqZiFKte/exec";
 
         const medicineCatalog = [
             { group: "១. ថ្នាំផ្សះ និងបំបាត់ការឈឺចាប់ (Antibiotics & Pain Relief)", items: [
                 { name: "Amox 500mg" }, { name: "Azithromycin 500mg" },
                 { name: "Metronidazole 500mg" }, { name: "Cephalexin 500mg" }, { name: "Ciprofloxacin 500mg" },
                 { name: "Doxycycline Capsule" }, { name: "Cotrimoxazole" }, { name: "Paracetamol 500mg" },
-                { name: "Ibufen 400mg" }, { name: "Ibufen 200mg" }, { name: "Diclofenac 500mg" }, 
+                { name: "Ibufen 400mg" }, { name: "Ibufen 200mg" }, { name: "Diclofenac 500mg" }
             ]},
             { group: "២. ថ្នាំក្អក ផ្តាសាយ និងអាឡែស៊ី (Cough, Cold & Allergy)", items: [
                 { name: "Dethux" }, { name: "Bromhexil 8" }, { name: "Nanhexil Syrup" },
@@ -304,8 +301,7 @@
             { group: "៤. ថ្នាំភ្នែក វីតាមីន និងក្រែមលាបស្បែក (Eye, Skin & Vitamins)", items: [
                 { name: "Chloramphenicol Eye Drops" }, { name: "Artificial Tears" }, { name: "Flucort N Cream" },
                 { name: "NHU Cream" }, { name: "Dermadine Antiseptic" }, { name: "Vitamin C 500mg" }, { name: "Nanvitac 25 Multivitamins" }
-            ]},
-           
+            ]}
         ];
 
         let patients = [];
@@ -425,24 +421,30 @@
 
         function saveRegistration(e) {
             e.preventDefault();
+            let name = document.getElementById('rName').value;
+            let age = document.getElementById('rAge').value;
+            if(!name || !age) {
+                alert('សូមបំពេញឈ្មោះ និងអាយុអ្នកជំងឺជាមុនសិន!');
+                return;
+            }
+
             let newPatient = {
                 id: queueNumber,
                 timestamp: new Date().toLocaleTimeString('km-KH', { hour: '2-digit', minute: '2-digit' }),
                 date: new Date().toLocaleDateString('km-KH'),
-                name: document.getElementById('rName').value,
-                age: document.getElementById('rAge').value,
+                name: name,
+                age: age,
                 gender: document.getElementById('rGender').value,
                 bp: document.getElementById('rBP').value || 'N/A',
                 hr: document.getElementById('rHR').value || 'N/A',
                 dept: document.getElementById('rDept').value,
                 primaryCare: document.getElementById('rPrimaryCare').value,
-                symptoms: '', // ទុកអោយពេទ្យបញ្ចូលនៅជំហានទី២
+                symptoms: '', 
                 status: 'កំពុងរង់ចាំ',
                 diagnosis: '', 
                 prescriptions: []
             };
 
-            // Post to cloud for syncing waiting list
             fetch(WEB_APP_URL, { method: "POST", body: JSON.stringify({ action: "save", patient: newPatient }) })
                 .then(() => fetchCloudData());
 
@@ -451,8 +453,7 @@
             updateQueueDisplay();
             updatePatientDropdown();
             renderRecords();
-            e.target.reset();
-            updatePrimaryCareOptions();
+            document.getElementById('registerForm').reset();
 
             alert('ចុះឈ្មោះអ្នកជំងឺលេខ #' + String(newPatient.id).padStart(3, '0') + ' បានជោគជ័យ!');
             switchTab('consult');
@@ -481,6 +482,7 @@
                 eyeSec.classList.add('hidden');
                 document.getElementById('selectedPatientId').value = '';
                 document.getElementById('cSymptoms').value = ''; 
+                document.getElementById('cDiagnosis').value = '';
                 document.querySelectorAll('input[name="tableMedCheck"]').forEach(cb => cb.checked = false);
                 return;
             }
@@ -489,6 +491,7 @@
             if(p) {
                 document.getElementById('selectedPatientId').value = p.id;
                 document.getElementById('cSymptoms').value = p.symptoms || ''; 
+                document.getElementById('cDiagnosis').value = p.diagnosis || '';
                 infoDiv.innerHTML = `អាយុ: ${p.age}ឆ្នាំ | ភេទ: ${p.gender} | សង្គ្រោះបឋម: ${p.primaryCare}`;
                 dentalSec.classList.add('hidden');
                 eyeSec.classList.add('hidden');
@@ -505,9 +508,19 @@
         }
 
         function saveConsultation(e) {
-            e.preventDefault();
+            if(e) e.preventDefault();
             let id = document.getElementById('selectedPatientId').value;
-            if(!id) return alert('សូមជ្រើសរើសអ្នកជំងឺម្នាក់ជាមុនសិន!');
+            if(!id) {
+                alert('សូមជ្រើសរើសអ្នកជំងឺម្នាក់ពីប្រអប់រង់ចាំខាងលើជាមុនសិន!');
+                return;
+            }
+
+            let symptomsVal = document.getElementById('cSymptoms').value;
+            let diagnosisVal = document.getElementById('cDiagnosis').value;
+            if(!symptomsVal || !diagnosisVal) {
+                alert('សូមបំពេញ "រោគសញ្ញា" និង "ការធ្វើរោគវិនិច្ឆ័យ" ឱ្យបានរួចរាល់!');
+                return;
+            }
 
             let selectedMeds = [];
             document.querySelectorAll('input[name="tableMedCheck"]:checked').forEach(cb => {
@@ -525,12 +538,9 @@
 
             let pIndex = patients.findIndex(item => item.id == id);
             if(pIndex !== -1) {
-                let baseDiag = document.getElementById('cDiagnosis').value;
                 let extraDetails = [];
-                
                 let dProcs = getCheckedValues('dentalProc');
-                let dTooth = document.getElementById('dentalToothNo').value;
-                if(dProcs.length > 0) extraDetails.push(`ធ្មេញ: ${dProcs.join(', ')} ${dTooth ? '(លេខ: '+dTooth+')' : ''}`);
+                if(dProcs.length > 0) extraDetails.push(`ធ្មេញ: ${dProcs.join(', ')}`);
 
                 let eLeft = document.getElementById('eyeLeft').value;
                 let eRight = document.getElementById('eyeRight').value;
@@ -541,8 +551,8 @@
                 let prayer = document.getElementById('prayerNotes').value;
                 if(prayer) extraDetails.push(`អធិស្ឋាន: ${prayer}`);
 
-                patients[pIndex].symptoms = document.getElementById('cSymptoms').value; // រក្សាទុករោគសញ្ញាពីជំហានទី២
-                patients[pIndex].diagnosis = baseDiag + (extraDetails.length > 0 ? " | " + extraDetails.join(' | ') : "");
+                patients[pIndex].symptoms = symptomsVal;
+                patients[pIndex].diagnosis = diagnosisVal + (extraDetails.length > 0 ? " | " + extraDetails.join(' | ') : "");
                 patients[pIndex].prescriptions = selectedMeds;
                 patients[pIndex].status = 'បានព្យាបាលរួច';
 
@@ -551,27 +561,24 @@
 
                 updatePatientDropdown();
                 renderRecords();
-                e.target.reset();
+                document.getElementById('consultForm').reset();
                 document.getElementById('dentalSection').classList.add('hidden');
                 document.getElementById('eyeSection').classList.add('hidden');
                 document.getElementById('activePatientInfo').innerHTML = '';
+                document.getElementById('activePatientSelect').value = '';
                 buildPrescriptionTable();
-                document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
 
                 alert('បានរក្សាទុករោគវិនិច្ឆ័យ និងតារាងវេជ្ជបញ្ជាដោយជោគជ័យ!');
                 switchTab('records');
             }
         }
 
-        // មុខងារលុបអ្នកជំងឺ (Delete Patient) ដែលបានកែប្រែបញ្ជូនទៅ Cloud
         function deletePatient(id) {
             if(confirm('តើអ្នកពិតជាចង់លុបព័ត៌មានអ្នកជំងឺនេះមែនទេ?')) {
-                // លុបពី Local
                 patients = patients.filter(p => p.id != id);
                 renderRecords();
                 updatePatientDropdown();
                 
-                // បញ្ជូនទៅលុបពី Google Sheets
                 fetch(WEB_APP_URL, { 
                     method: "POST", 
                     body: JSON.stringify({ action: "delete", id: id }) 
@@ -661,8 +668,8 @@
                 </head>
                 <body>
                     <div class="header">
-                        <h2 style="margin: 0; color: #312e81; font-size: 20px;">បេសកកម្មវេជ្ជសាស្ត្រ ទន្តសាស្ត្រ និងការថែទាំភ្នែក</h2>
-                        <p style="margin: 5px 0 0; font-size: 12px; color: #64748b;">Medical, Dental & Eye Care Mission Prescription</p>
+                        <h2 style="margin: 0; color: #312e81; font-size: 20px;">បេសកកម្មចុះពិនិត្យព្យាបាលជំងឺ និងផ្សាយដំណឹងល្អ</h2>
+                        <p style="margin: 5px 0 0; font-size: 12px; color: #64748b;">Medical mission and Gospel Prescription</p>
                     </div>
 
                     <div class="info-box">
