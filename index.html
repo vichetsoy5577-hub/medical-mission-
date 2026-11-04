@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>បេសកកម្មវេជ្ជសាស្ត្រ ទន្តសាស្ត្រ និងការផ្សព្វផ្សាយដំណឹងល្អ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Kantumruy Pro', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-indigo-900 text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row justify-between items-center">
+            <div class="flex items-center space-x-3 space-x-reverse">
+                <div class="bg-white/10 p-2.5 rounded-xl text-xl backdrop-blur-sm">✝️</div>
+                <div>
+                    <h1 class="text-lg font-bold tracking-wide">បេសកកម្មវេជ្ជសាស្ត្រ ទន្តសាស្ត្រ និងដំណឹងល្អ</h1>
+                    <p class="text-xs text-indigo-200">Medical, Dental Mission & Gospel Outreach Portal | Offline Ready</p>
+                </div>
+            </div>
+            <div class="mt-3 sm:mt-0 bg-indigo-950/60 border border-indigo-700/50 px-4 py-2 rounded-xl text-sm flex items-center space-x-3 space-x-reverse shadow-inner">
+                <span class="text-indigo-200 text-xs">លេខរង់ចាំបច្ចុប្បន្ន:</span>
+                <span id="queueBadge" class="font-extrabold text-amber-400 text-lg">001</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="bg-white border-b shadow-sm sticky top-0 z-10">
+        <div class="max-w-7xl mx-auto flex overflow-x-auto px-4">
+            <button onclick="switchTab('register')" id="tab-register" class="px-6 py-3.5 font-semibold text-indigo-900 border-b-2 border-indigo-900 whitespace-nowrap focus:outline-none transition text-sm flex items-center space-x-2 space-x-reverse">
+                <span>1️⃣ ចុះឈ្មោះ និងសង្គ្រោះបឋម</span>
+            </button>
+            <button onclick="switchTab('consult')" id="tab-consult" class="px-6 py-3.5 font-semibold text-slate-500 hover:text-indigo-900 whitespace-nowrap focus:outline-none transition text-sm flex items-center space-x-2 space-x-reverse">
+                <span>2️⃣ បន្ទប់ពិនិត្យ (ទូទៅ និងទន្តសាស្ត្រ)</span>
+            </button>
+            <button onclick="switchTab('records')" id="tab-records" class="px-6 py-3.5 font-semibold text-slate-500 hover:text-indigo-900 whitespace-nowrap focus:outline-none transition text-sm flex items-center space-x-2 space-x-reverse">
+                <span>3️⃣ កំណត់ត្រា និងបោះពុម្ព (<span id="recordCount">0</span>)</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-8 flex-grow w-full grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+        <!-- Left/Center Form Section -->
+        <div class="lg:col-span-2 space-y-6">
+
+            <!-- TAB 1: REGISTRATION & PRIMARY HEALTHCARE -->
+            <div id="section-register" class="bg-white rounded-2xl shadow-sm p-6 sm:p-8 border border-slate-200/80">
+                <div class="flex items-center space-x-3 space-x-reverse mb-6 pb-3 border-b">
+                    <span class="bg-indigo-100 text-indigo-800 p-2 rounded-xl text-lg">📝</span>
+                    <h2 class="text-lg font-bold text-slate-900">ជំហានទី១៖ ចុះឈ្មោះអ្នកជំងឺ និងការថែទាំបឋម (Primary Healthcare)</h2>
+                </div>
+                
+                <form id="registerForm" onsubmit="saveRegistration(event)" class="space-y-5">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">ឈ្មោះអ្នកជំងឺ *</label>
+                            <input type="text" id="rName" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:outline-none transition" placeholder="ឈ្មោះពេញ">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">អាយុ / ភេទ *</label>
+                            <div class="flex space-x-2 space-x-reverse">
+                                <input type="number" id="rAge" required class="w-1/2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:bg-white focus:outline-none" placeholder="អាយុ">
+                                <select id="rGender" class="w-1/2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:bg-white focus:outline-none">
+                                    <option value="ប្រុស">ប្រុស (M)</option>
+                                    <option value="ស្រី">ស្រី (F)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">សម្ពាធឈាម (BP - mmHg)</label>
+                            <input type="text" id="rBP" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:bg-white focus:outline-none" placeholder="ឧ. 120/80">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">ចង្វាក់បេះដូង (HR - bpm)</label>
+                            <input type="text" id="rHR" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:bg-white focus:outline-none" placeholder="ឧ. 75">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">ជ្រើសរើសផ្នែកព្យាបាល</label>
+                            <select id="rDept" onchange="toggleDepartmentView()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm font-semibold text-indigo-900 focus:bg-white focus:outline-none">
+                                <option value="សុខភាពទូទៅ (General Health)">🩺 សុខភាពទូទៅ (General Health)</option>
+                                <option value="ទន្តសាស្ត្រ (Dental Care)">🦷 ទន្តសាស្ត្រ (Dental Care)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">សេវាសង្គ្រោះបឋមបន្ថែម (Primary Care)</label>
+                            <select id="rPrimaryCare" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm font-semibold text-emerald-800 focus:bg-white focus:outline-none">
+                                <option value="គ្មាន (None)">គ្មានសង្គ្រោះបឋមបន្ទាន់</option>
+                                <option value="លាងសម្អាតរបួស (Wound Cleaning & Dressing)">🩹 លាងសម្អាត និងបិទរបួស</option>
+                                <option value="បន្តក់ភ្នែក និងលាងភ្នែក (Eye Irrigation)">👁️ ពិនិត្យ និងបន្តក់ភ្នែក</option>
+                                <option value="ព្យាបាលដំបៅស្បែក/រមាស់ (Skin Care)">🧴 ថែទាំដំបៅ និងរមាស់ស្បែក</option>
+                                <option value="វាស់កម្រិតជាតិស្ករក្នុងឈាម (Blood Glucose)">🩸 វាស់កម្រិតជាតិស្ករក្នុងឈាម</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">រោគសញ្ញា ឬមូលហេតុមកពិនិត្យ *</label>
+                        <textarea id="rSymptoms" required rows="2" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:bg-white focus:outline-none" placeholder="ឧ. ឈឺក្បាល វិលមុខ ឈឺធ្មេញ ឬមានដំបៅស្បែក..."></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3.5 rounded-xl shadow-md transition text-sm flex items-center justify-center space-x-2 space-x-reverse">
+                        <span>➕ រក្សាទុក និងបញ្ជូនទៅបន្ទប់ពិនិត្យ</span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- TAB 2: CONSULTATION, TREATMENT & GOSPEL -->
+            <div id="section-consult" class="bg-white rounded-2xl shadow-sm p-6 sm:p-8 border border-slate-200/80 hidden">
+                <div class="flex items-center space-x-3 space-x-reverse mb-6 pb-3 border-b">
+                    <span class="bg-indigo-100 text-indigo-800 p-2 rounded-xl text-lg">🏥</span>
+                    <h2 class="text-lg font-bold text-slate-900">ជំហានទី២៖ បន្ទប់ពិនិត្យព្យាបាល និងចេញវេជ្ជបញ្ជា</h2>
+                </div>
+                
+                <div class="mb-5 bg-indigo-50/70 p-4 rounded-xl border border-indigo-100 flex flex-col sm:flex-row justify-between items-center gap-3">
+                    <div class="w-full sm:w-auto">
+                        <span class="text-xs font-bold uppercase text-indigo-900">ជ្រើសរើសអ្នកជំងឺរង់ចាំ:</span>
+                        <select id="activePatientSelect" onchange="loadActivePatientData()" class="font-bold text-indigo-950 bg-white border border-indigo-200 rounded-xl px-3 py-2 text-sm ml-2 focus:outline-none shadow-sm">
+                            <option value="">-- ជ្រើសរើសអ្នកជំងឺ --</option>
+                        </select>
+                    </div>
+                    <div id="activePatientInfo" class="text-xs font-semibold text-slate-700 bg-white px-3 py-2 rounded-xl border border-indigo-100 shadow-sm w-full sm:w-auto"></div>
+                </div>
+
+                <form id="consultForm" onsubmit="saveConsultation(event)" class="space-y-5">
+                    <input type="hidden" id="selectedPatientId">
+
+                    <!-- Diagnosis -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">ការធ្វើរោគវិនិច្ឆ័យ (Diagnosis) *</label>
+                        <input type="text" id="cDiagnosis" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm font-bold text-indigo-900 focus:bg-white focus:outline-none" placeholder="ឧ. ជំងឺផ្តាសាយធំ / ពុកធ្មេញ / រលាកសហ្គា">
+                    </div>
+
+                    <!-- DENTAL CARE SPECIFIC SECTION -->
+                    <div id="dentalSection" class="hidden bg-amber-50/70 p-4 rounded-xl border border-amber-200 space-y-3">
+                        <label class="block text-xs font-bold uppercase text-amber-900">🦷 ផ្នែកទន្តសាស្ត្រ (Dental Care & Procedures)</label>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs">
+                            <label class="flex items-center space-x-1.5 space-x-reverse bg-white p-2.5 rounded-xl border border-amber-200 shadow-2xs"><input type="checkbox" name="dentalProc" value="ដកធ្មេញ (Tooth Extraction)"> <span>ដកធ្មេញ (Extraction)</span></label>
+                            <label class="flex items-center space-x-1.5 space-x-reverse bg-white p-2.5 rounded-xl border border-amber-200 shadow-2xs"><input type="checkbox" name="dentalProc" value="បំពេញធ្មេញ (Dental Filling)"> <span>បំពេញធ្មេញ (Filling)</span></label>
+                            <label class="flex items-center space-x-1.5 space-x-reverse bg-white p-2.5 rounded-xl border border-amber-200 shadow-2xs"><input type="checkbox" name="dentalProc" value="សម្អាតថ្មកំបោរ (Scaling & Polishing)"> <span>សម្អាតថ្មកំបោរ (Scaling)</span></label>
+                            <label class="flex items-center space-x-1.5 space-x-reverse bg-white p-2.5 rounded-xl border border-amber-200 shadow-2xs"><input type="checkbox" name="dentalProc" value="ព្យាបាលរលាកសហ្គា (Gingivitis Treatment)"> <span>ព្យាបាលរលាកសហ្គា</span></label>
+                            <label class="flex items-center space-x-1.5 space-x-reverse bg-white p-2.5 rounded-xl border border-amber-200 shadow-2xs"><input type="checkbox" name="dentalProc" value="បំបាត់ការឈឺចាប់ធ្មេញ (Dental Pain Relief)"> <span>បំបាត់ការឈឺចាប់ធ្មេញ</span></label>
+                        </div>
+                        <div>
+                            <input type="text" id="dentalToothNo" class="w-full bg-white border border-amber-200 rounded-xl px-4 py-2 text-sm focus:outline-none" placeholder="ទីតាំងធ្មេញលេខ (ឧ. 36, 46 ឬ ធ្មេញមុខខាងលើ)">
+                        </div>
+                    </div>
+
+                    <!-- PHARMACY CHECKLIST (Items 1-35 + Added Mission Notebook Medicines) -->
+                    <div id="pharmacySection" class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                        <label class="block text-xs font-bold uppercase text-slate-700">💊 ជ្រើសរើសថ្នាំ និងសម្ភារបរិក្ខារពេទ្យ (រួមទាំងថ្នាំបេសកកម្មបន្ថែម)</label>
+                        <div class="max-h-60 overflow-y-auto grid grid-cols-1 sm:grid-cols-2 gap-2 bg-white p-3 rounded-xl border text-xs">
+                            <!-- Standard Section 1 Items (1-35) -->
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded"><input type="checkbox" name="meds" value="1. Cetirizine USK (Antihistamine)"> <span>1. Cetirizine USK (ថ្នាំអាឡែស៊ី)[cite: 1]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded"><input type="checkbox" name="meds" value="2. Amox 500 (Amoxicillin 500mg)"> <span>2. Amox 500 (ថ្នាំផ្សះ)[cite: 1]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded"><input type="checkbox" name="meds" value="3. Domper. (Anti-emetic / GI)"> <span>3. Domperidone (ថ្នាំក្អួត/ក្រពះ)[cite: 1]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded"><input type="checkbox" name="meds" value="4. Ibu 400 (Ibuprofen 400mg)"> <span>4. Ibu 400 (ថ្នាំបំបាត់ការឈឺចាប់)[cite: 1]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded"><input type="checkbox" name="meds" value="5. Ibu 200 (Ibuprofen 200mg)"> <span>5. Ibu 200 (ថ្នាំបំបាត់ការឈឺចាប់)[cite: 1]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded"><input type="checkbox" name="meds" value="6. Diclo. (Diclofenac Anti-inflam.)"> <span>6. Diclofenac (ថ្នាំរលាកសន្លាក់)[cite: 1]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded"><input type="checkbox" name="meds" value="7. Omex (Omeprazole Antacid)"> <span>7. Omeprazole (ថ្នាំក្រពះ)[cite: 1]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded"><input type="checkbox" name="meds" value="8. Safon (Gastrointestinal)"> <span>8. Safon (ថ្នាំក្រពះពោះវៀន)[cite: 1]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded"><input type="checkbox" name="meds" value="9. Adipin 5 (Amlodipine 5mg)"> <span>9. Adipin 5 (ថ្នាំសម្ពាធឈាម)[cite: 1]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded"><input type="checkbox" name="meds" value="10. Almex (Albendazole)"> <span>10. Albendazole (ថ្នាំទុយ/ព្រូន)[cite: 1]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded"><input type="checkbox" name="meds" value="11. Alpha Chymotrypsin"> <span>11. Alpha Chymotrypsin[cite: 1]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded"><input type="checkbox" name="meds" value="12. Bromhexil 8 (Mucolytic)"> <span>12. Bromhexine (ថ្នាំក្អក/ស្លេស្ម)[cite: 1]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded"><input type="checkbox" name="meds" value="13. Eye Drops (Antibiotic/Soothing)"> <span>13. ថ្នាំបន្តក់ភ្នែក[cite: 1]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded"><input type="checkbox" name="meds" value="14. Nacl 0.9% (Wound wash)"> <span>14. សេរ៉ូមលាងរបួស (Nacl 0.9%)[cite: 1]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded"><input type="checkbox" name="meds" value="15. Tanil (Anti-diarrheal)"> <span>15. Tanil (ថ្នាំព្យាបាលរាក)[cite: 1]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded"><input type="checkbox" name="meds" value="16. Surgical scissors & tray"> <span>16. កន្ត្រៃ និងថាសដែកវះកាត់[cite: 1]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded"><input type="checkbox" name="meds" value="17. Sterile Gauze pads"> <span>17. ហ្គាសអនាម័យ (Gauze pads)[cite: 1]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded"><input type="checkbox" name="meds" value="18. Tongue Depressors"> <span>18. ឈើគៀបសង្កត់អណ្តាត[cite: 1]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded"><input type="checkbox" name="meds" value="19. Topical Anti-itch Cream"> <span>19. ក្រែមលាបរមាស់[cite: 1]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded"><input type="checkbox" name="meds" value="20. Neo-CMP (Intestinal antibiotic)"> <span>20. Neo-CMP (ថ្នាំផ្សះពោះវៀន)[cite: 1]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded"><input type="checkbox" name="meds" value="21. Disposable Syringes 10cc"> <span>21. សារ៉ាងចាក់ ១០សេសេ[cite: 1]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded"><input type="checkbox" name="meds" value="22. Dermadine Antiseptic"> <span>22. ថ្នាំលាបដំបៅសាសន៍[cite: 1]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded"><input type="checkbox" name="meds" value="23. Adhesive Bandages / Plasters"> <span>23. បង្គាប់បិទរបួស (Plasters)[cite: 1]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded"><input type="checkbox" name="meds" value="24. IV Fluids Solution 500ml"> <span>24. សេរ៉ូមបន្តក់ ៥០០មីលីលីត្រ[cite: 1]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded"><input type="checkbox" name="meds" value="25. Amox 250 Suspension"> <span>25. Amox ២៥០ ស៊ីរ៉ូទឹក (កុមារ)[cite: 1]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded"><input type="checkbox" name="meds" value="26. Nanvitac-25 Multivitamins"> <span>26. វីតាមីនចម្រុះ[cite: 1]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded"><input type="checkbox" name="meds" value="27. Vit. C 500 (Vitamin C)"> <span>27. វីតាមីនស៊ី ៥០០មីលីក្រាម[cite: 1]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded"><input type="checkbox" name="meds" value="28. Doxy MS (Antibiotic)"> <span>28. Doxycycline (ថ្នាំផ្សះ)[cite: 1]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded"><input type="checkbox" name="meds" value="29. Ciprocin 500 (Ciprofloxacin)"> <span>29. Ciprofloxacin 500mg[cite: 1]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded"><input type="checkbox" name="meds" value="30. Ciprof Generic"> <span>30. Ciprofloxacin Generic[cite: 1]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded"><input type="checkbox" name="meds" value="31. Ramine-4 (Chlorpheniramine)"> <span>31. Chlorpheniramine 4mg[cite: 1]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded"><input type="checkbox" name="meds" value="32. Cepha. 500 (Cephalexin)"> <span>32. Cephalexin 500mg[cite: 1]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded"><input type="checkbox" name="meds" value="33. Syrup Ramol 250 (Paracetamol)"> <span>33. ស៊ីរ៉ូប៉ារ៉ាសេតាមុល (កុមារ)[cite: 1]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded"><input type="checkbox" name="meds" value="34. Syrup Nan Nhexine (Cough Syrup)"> <span>34. ស៊ីរ៉ូក្អក (កុមារ)[cite: 1]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded"><input type="checkbox" name="meds" value="35. Syrup Ibu (Ibuprofen Pediatric)"> <span>35. ស៊ីរ៉ូបំបាត់ការឈឺចាប់ (កុមារ)[cite: 1]</span></label>
+                            
+                            <!-- Added from Mission Notebook Photos -->
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded bg-indigo-50/50"><input type="checkbox" name="meds" value="Metronidazole (Metro) 500mg"> <span>➕ Metronidazole 500mg (ថ្នាំផ្សះពោះវៀន/ធ្មេញ)[cite: 4]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded bg-indigo-50/50"><input type="checkbox" name="meds" value="Azithromycin Serum / Tablet"> <span>➕ Azithromycin (ថ្នាំផ្សះ)[cite: 4]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded bg-indigo-50/50"><input type="checkbox" name="meds" value="Diclofenac 500mg"> <span>➕ Diclofenac 500mg[cite: 4]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded bg-indigo-50/50"><input type="checkbox" name="meds" value="Spafon 80mg"> <span>➕ Spafon 80mg (ថ្នាំស្ពឹកពោះវៀន/រមួល)[cite: 4]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded bg-indigo-50/50"><input type="checkbox" name="meds" value="Metformin 500mg"> <span>➕ Metformin 500mg (ថ្នាំទឹកនោមផ្អែម)[cite: 4]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded bg-indigo-50/50"><input type="checkbox" name="meds" value="Sitagliptin 100mg"> <span>➕ Sitagliptin 100mg (ថ្នាំទឹកនោមផ្អែម)[cite: 4]</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded bg-indigo-50/50"><input type="checkbox" name="meds" value="Dexamethasone 0.5mg"> <span>➕ Dexamethasone (ថ្នាំកាត់រលាកខ្លាំង)</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded bg-indigo-50/50"><input type="checkbox" name="meds" value="Loperamide (Imodium)"> <span>➕ Loperamide (ថ្នាំទប់រាក)</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded bg-indigo-50/50"><input type="checkbox" name="meds" value="Cotrimoxazole"> <span>➕ Cotrimoxazole (ថ្នាំផ្សះ)</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded bg-indigo-50/50"><input type="checkbox" name="meds" value="Paracetamol 500mg Tablets"> <span>➕ Paracetamol 500mg (ថ្នាំកំដៅ/ឈឺចាប់)</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded bg-amber-50/50"><input type="checkbox" name="meds" value="Mefenamic Acid 500mg (ថ្នាំឈឺធ្មេញ)"> <span>⭐ Mefenamic Acid 500mg (ឈឺធ្មេញ)</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse p-1.5 hover:bg-slate-50 rounded bg-amber-50/50"><input type="checkbox" name="meds" value="Chlorhexidine Mouthwash"> <span>⭐ Chlorhexidine ទឹកលាងមាត់</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Dosage Timing -->
+                    <div class="bg-indigo-50/50 p-4 rounded-xl border border-indigo-100 space-y-3">
+                        <label class="block text-xs font-bold uppercase text-indigo-900">⏰ កម្រិត និងពេលលេបថ្នាំ</label>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+                            <label class="flex items-center space-x-1.5 space-x-reverse bg-white p-2 rounded-lg border border-indigo-100"><input type="checkbox" name="doseTime" value="ពេលព្រឹក"> <span>ពេលព្រឹក</span></label>
+                            <label class="flex items-center space-x-1.5 space-x-reverse bg-white p-2 rounded-lg border border-indigo-100"><input type="checkbox" name="doseTime" value="ពេលថ្ងៃ"> <span>ពេលថ្ងៃ</span></label>
+                            <label class="flex items-center space-x-1.5 space-x-reverse bg-white p-2 rounded-lg border border-indigo-100"><input type="checkbox" name="doseTime" value="ពេលល្ងាច"> <span>ពេលល្ងាច</span></label>
+                            <label class="flex items-center space-x-1.5 space-x-reverse bg-white p-2 rounded-lg border border-indigo-100"><input type="checkbox" name="doseTime" value="មុនពេលគេង"> <span>មុនពេលគេង</span></label>
+                        </div>
+                        <div>
+                            <input type="text" id="cCustomDose" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-2 text-sm focus:outline-none" placeholder="កំណត់ចំនួនគ្រាប់ និងពេលញ៉ាំបន្ថែម (ឧ. ១គ្រាប់ ក្រោយបាយ ៣ដងក្នុង១ថ្ងៃ)">
+                        </div>
+                    </div>
+
+                    <!-- Gospel Outreach & Prayer Section -->
+                    <div class="bg-amber-50/70 p-4 rounded-xl border border-amber-200 space-y-3">
+                        <label class="block text-xs font-bold uppercase text-amber-900">✝️ ផ្នែកផ្សព្វផ្សាយដំណឹងល្អ និងការអធិស្ឋានជូនពរ (Gospel & Prayer)</label>
+                        <div class="flex items-center space-x-2 space-x-reverse">
+                            <input type="checkbox" id="gospelShared" class="rounded text-amber-600 w-4 h-4">
+                            <span class="text-xs font-semibold text-amber-950">បានចែករំលែកដំណឹងល្អ / និយាយពីព្រះអង្គជូនអ្នកជំងឺ</span>
+                        </div>
+                        <div>
+                            <input type="text" id="prayerNotes" class="w-full bg-white border border-amber-200 rounded-xl px-4 py-2 text-sm focus:outline-none" placeholder="ចំណាំសំណូមពរអធិស្ឋាន (ឧ. អធិស្ឋានឱ្យหายជំងឺ គ្រួសារស្រុះស្រួល...)">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3.5 rounded-xl shadow-md transition text-sm">
+                        💾 រក្សាទុកការព្យាបាល និងដំណឹងល្អ
+                    </button>
+                </form>
+            </div>
+
+            <!-- TAB 3: RECORDS -->
+            <div id="section-records" class="bg-white rounded-2xl shadow-sm p-6 sm:p-8 border border-slate-200/80 hidden">
+                <div class="flex flex-col sm:flex-row justify-between items-center mb-6 pb-3 border-b gap-3">
+                    <h2 class="text-lg font-bold text-slate-900">បញ្ជីប្រវត្តិអ្នកជំងឺ និងបោះពុម្ពវេជ្ជបញ្ជា</h2>
+                    <button onclick="exportData()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-xl text-xs font-semibold transition">📥 ទាញយកទិន្នន័យ JSON</button>
+                </div>
+                <div id="recordsList" class="space-y-4">
+                    <p class="text-sm text-slate-400 text-center py-8">មិនទាន់មានទិន្នន័យអ្នកជំងឺនៅឡើយទេ។</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Right Sidebar -->
+        <div class="space-y-6">
+            <div class="bg-white rounded-2xl shadow-sm p-6 border border-slate-200/80">
+                <h3 class="font-bold text-slate-900 mb-4 flex items-center justify-between text-sm">
+                    <span>ស្ថិតិបេសកកម្មថ្ងៃនេះ</span>
+                    <span class="bg-indigo-50 text-indigo-700 text-xs px-2.5 py-1 rounded-lg font-semibold">ស្ថិតិ</span>
+                </h3>
+                <div class="space-y-3 text-sm">
+                    <div class="flex justify-between p-3 bg-slate-50 rounded-xl">
+                        <span class="text-slate-600">អ្នកជំងឺចុះឈ្មោះសរុប:</span>
+                        <span id="statTotal" class="font-bold text-indigo-900">0 នាក់</span>
+                    </div>
+                    <div class="flex justify-between p-3 bg-slate-50 rounded-xl">
+                        <span class="text-slate-600">បានព្យាបាលរួច:</span>
+                        <span id="statCompleted" class="font-bold text-emerald-600">0 នាក់</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-br from-indigo-900 to-slate-900 text-white rounded-2xl shadow-sm p-6 space-y-3">
+                <h3 class="font-bold text-indigo-200 text-sm">💡 គោលបំណងបេសកកម្ម</h3>
+                <p class="text-xs text-indigo-100/90 leading-relaxed">
+                    <b>១. សុខាភិបាល និងទន្តសាស្ត្រ:</b> ពិនិត្យសុខភាព ដកធ្មេញ បំពេញធ្មេញ សង្គ្រោះបឋម និងផ្តល់ថ្នាំព្យាបាល។<br><br>
+                    <b>២. កិច្ចការដំណឹងល្អ:</b> បង្ហាញក្តីស្រឡាញ់របស់ព្រះ តាមរយៈការអធិស្ឋាន និងចែករំលែកព្រះបន្ទូលជូនពួកគាត់។
+                </p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t mt-auto py-4 text-center text-xs text-slate-500">
+        បេសកកម្មវេជ្ជសាស្ត្រ ទន្តសាស្ត្រ និងដំណឹងល្អ • Medical, Dental & Gospel Mission
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        let patients = JSON.parse(localStorage.getItem('mission_pro_v4') || '[]');
+        let queueNumber = patients.length + 1;
+        
+        updateQueueDisplay();
+        updatePatientDropdown();
+        renderRecords();
+
+        function switchTab(tab) {
+            ['register', 'consult', 'records'].forEach(t => {
+                document.getElementById(`section-${t}`).classList.add('hidden');
+                document.getElementById(`tab-${t}`).className = "px-6 py-3.5 font-semibold text-slate-500 hover:text-indigo-900 whitespace-nowrap focus:outline-none transition text-sm flex items-center space-x-2 space-x-reverse";
+            });
+            document.getElementById(`section-${tab}`).classList.remove('hidden');
+            document.getElementById(`tab-${tab}`).className = "px-6 py-3.5 font-semibold text-indigo-900 border-b-2 border-indigo-900 whitespace-nowrap focus:outline-none transition text-sm flex items-center space-x-2 space-x-reverse";
+        }
+
+        function updateQueueDisplay() {
+            let qStr = String(queueNumber).padStart(3, '0');
+            document.getElementById('queueBadge').innerText = qStr;
+        }
+
+        function toggleDepartmentView() {}
+
+        function saveRegistration(e) {
+            e.preventDefault();
+            
+            let newPatient = {
+                id: queueNumber,
+                timestamp: new Date().toLocaleTimeString('km-KH', { hour: '2-digit', minute: '2-digit' }),
+                date: new Date().toLocaleDateString('km-KH'),
+                name: document.getElementById('rName').value,
+                age: document.getElementById('rAge').value,
+                gender: document.getElementById('rGender').value,
+                bp: document.getElementById('rBP').value || 'N/A',
+                hr: document.getElementById('rHR').value || 'N/A',
+                dept: document.getElementById('rDept').value,
+                primaryCare: document.getElementById('rPrimaryCare').value,
+                symptoms: document.getElementById('rSymptoms').value,
+                status: 'កំពុងរង់ចាំ',
+                diagnosis: '',
+                dentalProcs: [],
+                dentalToothNo: '',
+                medications: [],
+                doseTimes: [],
+                customDose: '',
+                gospelShared: false,
+                prayerNotes: ''
+            };
+
+            patients.unshift(newPatient);
+            localStorage.setItem('mission_pro_v4', JSON.stringify(patients));
+            
+            queueNumber++;
+            updateQueueDisplay();
+            updatePatientDropdown();
+            renderRecords();
+            e.target.reset();
+
+            alert('ចុះឈ្មោះអ្នកជំងឺលេខ #' + String(newPatient.id).padStart(3, '0') + ' បានជោគជ័យ!');
+            switchTab('consult');
+            document.getElementById('activePatientSelect').value = newPatient.id;
+            loadActivePatientData();
+        }
+
+        function updatePatientDropdown() {
+            let select = document.getElementById('activePatientSelect');
+            let waitingPatients = patients.filter(p => p.status === 'កំពុងរង់ចាំ');
+            
+            select.innerHTML = '<option value="">-- ជ្រើសរើសអ្នកជំងឺពីបញ្ជីរង់ចាំ --</option>';
+            waitingPatients.forEach(p => {
+                select.innerHTML += `<option value="${p.id}">#${String(p.id).padStart(3, '0')} - ${p.name} (${p.dept})</option>`;
+            });
+        }
+
+        function loadActivePatientData() {
+            let id = document.getElementById('activePatientSelect').value;
+            let infoDiv = document.getElementById('activePatientInfo');
+            let dentalSec = document.getElementById('dentalSection');
+            
+            if(!id) {
+                infoDiv.innerHTML = '';
+                dentalSec.classList.add('hidden');
+                document.getElementById('selectedPatientId').value = '';
+                return;
+            }
+
+            let p = patients.find(item => item.id == id);
+            if(p) {
+                document.getElementById('selectedPatientId').value = p.id;
+                infoDiv.innerHTML = `អាយុ: ${p.age}ឆ្នាំ | សង្គ្រោះបឋម: ${p.primaryCare} | រោគសញ្ញា: ${p.symptoms}`;
+                
+                if(p.dept.includes('Dental')) {
+                    dentalSec.classList.remove('hidden');
+                } else {
+                    dentalSec.classList.add('hidden');
+                }
+            }
+        }
+
+        function getCheckedValues(name) {
+            let checkboxes = document.querySelectorAll(`input[name="${name}"]:checked`);
+            let values = [];
+            checkboxes.forEach((cb) => values.push(cb.value));
+            return values;
+        }
+
+        function saveConsultation(e) {
+            e.preventDefault();
+            let id = document.getElementById('selectedPatientId').value;
+            
+            if(!id) {
+                alert('សូមជ្រើសរើសអ្នកជំងឺម្នាក់ជាមុនសិន!');
+                return;
+            }
+
+            let pIndex = patients.findIndex(item => item.id == id);
+            if(pIndex !== -1) {
+                patients[pIndex].status = 'បានព្យាបាលរួច';
+                patients[pIndex].diagnosis = document.getElementById('cDiagnosis').value;
+                patients[pIndex].dentalProcs = getCheckedValues('dentalProc');
+                patients[pIndex].dentalToothNo = document.getElementById('dentalToothNo').value;
+                patients[pIndex].medications = getCheckedValues('meds');
+                patients[pIndex].doseTimes = getCheckedValues('doseTime');
+                patients[pIndex].customDose = document.getElementById('cCustomDose').value;
+                patients[pIndex].gospelShared = document.getElementById('gospelShared').checked;
+                patients[pIndex].prayerNotes = document.getElementById('prayerNotes').value;
+
+                localStorage.setItem('mission_pro_v4', JSON.stringify(patients));
+                
+                updatePatientDropdown();
+                renderRecords();
+                e.target.reset();
+                document.getElementById('dentalSection').classList.add('hidden');
+                document.getElementById('activePatientInfo').innerHTML = '';
+                document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+
+                alert('បានរក្សាទុករោគវិនិច្ឆ័យ និងវេជ្ជបញ្ជាដោយជោគជ័យ!');
+                switchTab('records');
+            }
+        }
+
+        function renderRecords() {
+            let container = document.getElementById('recordsList');
+            document.getElementById('recordCount').innerText = patients.length;
+            document.getElementById('statTotal').innerText = patients.length + ' នាក់';
+            
+            let completedCount = patients.filter(p => p.status === 'បានព្យាបាលរួច').length;
+            document.getElementById('statCompleted').innerText = completedCount + ' នាក់';
+
+            if (patients.length === 0) {
+                container.innerHTML = '<p class="text-sm text-slate-400 text-center py-8">មិនទាន់មានទិន្នន័យអ្នកជំងឺនៅឡើយទេ។</p>';
+                return;
+            }
+
+            container.innerHTML = patients.map(p => `
+                <div class="border border-slate-200 rounded-2xl p-5 bg-slate-50/60 text-sm space-y-3 shadow-xs">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b pb-3 gap-2">
+                        <div>
+                            <span class="bg-indigo-900 text-white font-bold text-xs px-3 py-1 rounded-lg">#${String(p.id).padStart(3, '0')}</span>
+                            <span class="font-bold text-slate-900 ml-2 text-base">${p.name}</span>
+                            <span class="text-slate-500 text-xs">(${p.age}ឆ្នាំ, ${p.gender})</span>
+                            <span class="ml-2 px-2.5 py-0.5 text-xs rounded-lg font-semibold ${p.status === 'បានព្យាបាលរួច' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">${p.status}</span>
+                        </div>
+                        <div class="flex items-center space-x-2 space-x-reverse">
+                            <span class="text-xs text-slate-400">${p.timestamp} (${p.date})</span>
+                            ${p.status === 'បានព្យាបាលរួច' ? `<button onclick="printPrescription(${p.id})" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded-xl text-xs font-semibold shadow-xs transition flex items-center space-x-1 space-x-reverse"><span>🖨️ បោះពុម្ពវេជ្ជបញ្ជា</span></button>` : ''}
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs bg-white p-3 rounded-xl border border-slate-200/80">
+                        <div><b>ផ្នែក:</b> <span class="text-indigo-700 font-semibold">${p.dept}</span></div>
+                        <div><b>សង្គ្រោះបឋម:</b> <span class="text-emerald-700 font-semibold">${p.primaryCare}</span></div>
+                        <div><b>សម្ពាធឈាម:</b> ${p.bp}</div>
+                        <div><b>រោគសញ្ញា:</b> ${p.symptoms}</div>
+                    </div>
+
+                    ${p.diagnosis ? `
+                    <div class="text-xs bg-indigo-50/60 p-3 rounded-xl border border-indigo-100">
+                        <b class="text-indigo-950 font-bold">រោគវិនិច្ឆ័យ:</b> <span class="font-bold text-indigo-900">${p.diagnosis}</span>
+                        ${p.dentalProcs && p.dentalProcs.length > 0 ? `<br><b class="text-amber-900">សេវាធ្មេញ:</b> ${p.dentalProcs.join(', ')} ${p.dentalToothNo ? '(ធ្មេញលេខ: ' + p.dentalToothNo + ')' : ''}` : ''}
+                    </div>` : ''}
+
+                    ${p.medications && p.medications.length > 0 ? `
+                    <div class="text-xs bg-emerald-50/60 p-3.5 rounded-xl border border-emerald-100 space-y-1.5">
+                        <b class="text-emerald-900 block font-bold">💊 ថ្នាំបានផ្តល់ជូន:</b>
+                        <div class="flex flex-wrap gap-1">
+                            ${p.medications.map(m => `<span class="bg-white text-emerald-800 text-xs px-2.5 py-1 rounded-lg border border-emerald-200 shadow-2xs">${m}</span>`).join('')}
+                        </div>
+                        <div class="text-emerald-950 pt-1 font-medium">
+                            <b>ពេលលេប:</b> ${p.doseTimes.join(', ')} ${p.customDose ? ' | ' + p.customDose : ''}
+                        </div>
+                    </div>` : ''}
+
+                    ${p.gospelShared || p.prayerNotes ? `
+                    <div class="text-xs bg-amber-50/80 p-3 rounded-xl border border-amber-200">
+                        <b class="text-amber-900 font-bold">✝️ ដំណឹងល្អ និងការអធិស្ឋាន:</b> 
+                        ${p.gospelShared ? '<span class="text-emerald-700 font-bold ml-1">✓ បានចែករំលែកដំណឹងល្អ</span>' : ''}
+                        ${p.prayerNotes ? `<br><b>សំណូមពរអធិស្ឋាន:</b> ${p.prayerNotes}` : ''}
+                    </div>` : ''}
+                </div>
+            `).join('');
+        }
+
+        function printPrescription(id) {
+            let p = patients.find(item => item.id == id);
+            if(!p) return;
+
+            let printWindow = window.open('', '_blank', 'width=800,height=600');
+            printWindow.document.write(`
+                <html>
+                <head>
+                    <title>វេជ្ជបញ្ជា - Prescription #${String(p.id).padStart(3, '0')}</title>
+                    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+                    <style>
+                        body { font-family: 'Kantumruy Pro', sans-serif; padding: 40px; color: #1e293b; }
+                        .header { text-align: center; border-bottom: 2px solid #312e81; padding-bottom: 15px; margin-bottom: 20px; }
+                        .info-box { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 15px; background: #f8fafc; padding: 10px 15px; border-radius: 8px; }
+                        .details { font-size: 13px; margin-bottom: 20px; line-height: 1.6; }
+                        .diag-box { margin-bottom: 20px; font-size: 13px; background: #eff6ff; padding: 12px 15px; border-radius: 8px; border: 1px solid #bfdbfe; }
+                        .med-box { margin-bottom: 30px; font-size: 13px; }
+                        .sign-box { display: flex; justify-content: space-between; margin-top: 50px; font-size: 13px; }
+                    </style>
+                </head>
+                <body>
+                    <div class="header">
+                        <h2 style="margin: 0; color: #312e81; font-size: 22px;">បេសកកម្មវេជ្ជសាស្ត្រ ទន្តសាស្ត្រ និងការផ្សព្វផ្សាយដំណឹងល្អ</h2>
+                        <p style="margin: 5px 0 0; font-size: 12px; color: #64748b;">Medical, Dental Mission & Gospel Outreach Prescription</p>
+                    </div>
+
+                    <div class="info-box">
+                        <div><b>លេខរង់ចាំ/Queue:</b> #${String(p.id).padStart(3, '0')}</div>
+                        <div><b>កាលបរិច្ឆេទ:</b> ${p.date} (${p.timestamp})</div>
+                    </div>
+
+                    <div class="details">
+                        <div><b>ឈ្មោះអ្នកជំងឺ:</b> ${p.name} &nbsp;&nbsp;&nbsp; <b>អាយុ:</b> ${p.age}ឆ្នាំ &nbsp;&nbsp;&nbsp; <b>ភេទ:</b> ${p.gender}</div>
+                        <div><b>សម្ពាធឈាម (BP):</b> ${p.bp} mmHg &nbsp;&nbsp;&nbsp; <b>ចង្វាក់បេះដូង (HR):</b> ${p.hr} bpm</div>
+                        <div><b>ផ្នែកពិនិត្យ:</b> ${p.dept} &nbsp;&nbsp;&nbsp; <b>សង្គ្រោះបឋម:</b> ${p.primaryCare}</div>
+                    </div>
+
+                    <div class="diag-box">
+                        <b style="color: #1e3a8a;">ការធ្វើរោគវិនិច្ឆ័យ (Diagnosis):</b><br>
+                        <span style="font-size: 15px; font-weight: bold; color: #1e293b;">${p.diagnosis || 'គ្មាន'}</span>
+                        ${p.dentalProcs && p.dentalProcs.length > 0 ? `<br><br><b>សេវាកម្មទន្តសាស្ត្រ:</b> ${p.dentalProcs.join(', ')} ${p.dentalToothNo ? '(ធ្មេញលេខ: ' + p.dentalToothNo + ')' : ''}` : ''}
+                    </div>
+
+                    <div class="med-box">
+                        <b style="color: #065f46; font-size: 14px; display: block; margin-bottom: 8px;">💊 វេជ្ជបញ្ជា និងកម្រិតប្រើប្រាស់ថ្នាំ (Prescription):</b>
+                        <ul style="padding-left: 20px; margin: 0; line-height: 1.8;">
+                            ${p.medications && p.medications.length > 0 ? p.medications.map(m => `<li><b>${m}</b></li>`).join('') : '<li>គ្មានថ្នាំបានផ្តល់ជូន</li>'}
+                        </ul>
+                        <div style="margin-top: 10px; background: #f0fdf4; padding: 10px 15px; border-radius: 8px; border: 1px solid #bbf7d0;">
+                            <b>ការណែនាំពេលលេប:</b> ${p.doseTimes.join(', ')} ${p.customDose ? ' | ' + p.customDose : 'តាមវេជ្ជបញ្ជា'}
+                        </div>
+                    </div>
+
+                    ${p.prayerNotes ? `
+                    <div style="margin-bottom: 30px; font-size: 13px; background: #fffbeb; padding: 10px 15px; border-radius: 8px; border: 1px solid #fde68a;">
+                        <b>✝️ ការអធិស្ឋានជូនពរ:</b> ${p.prayerNotes}
+                    </div>` : ''}
+
+                    <div class="sign-box">
+                        <div style="text-align: center;">
+                            <p>ហត្ថលេខាអ្នកជំងឺ / Patient Signature</p>
+                            <br><br>
+                            <p>........................................</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <p>ហត្ថលេខាវេជ្ជបណ្ឌិត / Doctor's Signature</p>
+                            <br><br>
+                            <p>........................................</p>
+                        </div>
+                    </div>
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+            printWindow.focus();
+            setTimeout(() => {
+                printWindow.print();
+            }, 500);
+        }
+
+        function exportData() {
+            let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(patients, null, 2));
+            let downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", "medical_dental_gospel_mission_data.json");
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+        }
+    </script>
+</body>
+</html>
