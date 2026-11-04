@@ -22,11 +22,12 @@
                 <div class="bg-white/10 p-2.5 rounded-xl text-xl backdrop-blur-sm border border-white/10">✝️</div>
                 <div>
                     <h1 class="text-lg font-bold tracking-wide">បេសកកម្មវេជ្ជសាស្ត្រ ទន្តសាស្ត្រ និងការថែទាំភ្នែក</h1>
-                    <p class="text-xs text-indigo-300">Medical, Dental & Eye Care Mission Portal | Offline Ready</p>
+                    <p class="text-xs text-indigo-300">Medical, Dental & Eye Care | <span class="font-bold text-emerald-400">Online Cloud Sync Enabled</span></p>
                 </div>
             </div>
             <div class="mt-3 sm:mt-0 bg-indigo-900 border border-indigo-700/50 px-4 py-2 rounded-xl text-sm flex items-center space-x-3 space-x-reverse shadow-inner">
-                <span class="text-indigo-200 text-xs font-medium">លេខរង់ចាំបន្ទាប់:</span>
+                <span id="syncStatus" class="font-bold text-emerald-400 text-xs mr-3">🟢 ភ្ជាប់អនឡាញ</span>
+                <span class="text-indigo-200 text-xs font-medium">លេខរង់ចាំ:</span>
                 <span id="queueBadge" class="font-extrabold text-amber-400 text-xl tabular-nums tracking-wider">001</span>
             </div>
         </div>
@@ -144,11 +145,11 @@
                     <div id="dentalSection" class="hidden bg-amber-50/70 p-4 rounded-xl border border-amber-200 space-y-3">
                         <label class="block text-xs font-bold uppercase text-amber-900">🦷 ផ្នែកទន្តសាស្ត្រ (Dental Care & Procedures)</label>
                         <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs">
-                            <label class="flex items-center space-x-1.5 space-x-reverse bg-white p-2.5 rounded-xl border border-amber-200"><input type="checkbox" name="dentalProc" value="ដកធ្មេញ (Tooth Extraction)"> <span>ដកធ្មេញ (Extraction)</span></label>
-                            <label class="flex items-center space-x-1.5 space-x-reverse bg-white p-2.5 rounded-xl border border-amber-200"><input type="checkbox" name="dentalProc" value="បំពេញធ្មេញ (Dental Filling)"> <span>បំពេញធ្មេញ (Filling)</span></label>
-                            <label class="flex items-center space-x-1.5 space-x-reverse bg-white p-2.5 rounded-xl border border-amber-200"><input type="checkbox" name="dentalProc" value="សម្អាតថ្មកំបោរ (Scaling & Polishing)"> <span>សម្អាតថ្មកំបោរ (Scaling)</span></label>
-                            <label class="flex items-center space-x-1.5 space-x-reverse bg-white p-2.5 rounded-xl border border-amber-200"><input type="checkbox" name="dentalProc" value="ព្យាបាលរលាកសហ្គា (Gingivitis Treatment)"> <span>ព្យាបាលរលាកសហ្គា</span></label>
-                            <label class="flex items-center space-x-1.5 space-x-reverse bg-white p-2.5 rounded-xl border border-amber-200"><input type="checkbox" name="dentalProc" value="បំបាត់ការឈឺចាប់ធ្មេញ (Dental Pain Relief)"> <span>បំបាត់ការឈឺចាប់ធ្មេញ</span></label>
+                            <label class="flex items-center space-x-1.5 space-x-reverse bg-white p-2.5 rounded-xl border border-amber-200"><input type="checkbox" name="dentalProc" value="ដកធ្មេញ"> <span>ដកធ្មេញ (Extraction)</span></label>
+                            <label class="flex items-center space-x-1.5 space-x-reverse bg-white p-2.5 rounded-xl border border-amber-200"><input type="checkbox" name="dentalProc" value="បំពេញធ្មេញ"> <span>បំពេញធ្មេញ (Filling)</span></label>
+                            <label class="flex items-center space-x-1.5 space-x-reverse bg-white p-2.5 rounded-xl border border-amber-200"><input type="checkbox" name="dentalProc" value="សម្អាតថ្មកំបោរ"> <span>សម្អាតថ្មកំបោរ (Scaling)</span></label>
+                            <label class="flex items-center space-x-1.5 space-x-reverse bg-white p-2.5 rounded-xl border border-amber-200"><input type="checkbox" name="dentalProc" value="ព្យាបាលរលាកសហ្គា"> <span>ព្យាបាលរលាកសហ្គា</span></label>
+                            <label class="flex items-center space-x-1.5 space-x-reverse bg-white p-2.5 rounded-xl border border-amber-200"><input type="checkbox" name="dentalProc" value="បំបាត់ការឈឺចាប់ធ្មេញ"> <span>បំបាត់ការឈឺចាប់ធ្មេញ</span></label>
                         </div>
                         <div>
                             <input type="text" id="dentalToothNo" class="w-full bg-white border border-amber-200 rounded-xl px-4 py-2 text-sm focus:outline-none" placeholder="ទីតាំងធ្មេញលេខ (ឧ. 36, 46 ឬ ធ្មេញមុខខាងលើ)">
@@ -173,8 +174,8 @@
                             </div>
                         </div>
                         <div class="text-xs bg-white p-3 rounded-xl border border-sky-100 space-y-2">
-                            <label class="flex items-center space-x-2 space-x-reverse"><input type="checkbox" name="eyeProc" value="ពិនិត្យកម្រិតភ្នែក (Visual Acuity)"> <span>ពិនិត្យកម្រិតភ្នែក (Visual Acuity)</span></label>
-                            <label class="flex items-center space-x-2 space-x-reverse"><input type="checkbox" name="eyeProc" value="ចែកវ៉ែនតាអានសៀវភៅ (Reading Glasses)"> <span>ចែកវ៉ែនតាអានសៀវភៅ (Reading Glasses)</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse"><input type="checkbox" name="eyeProc" value="ពិនិត្យកម្រិតភ្នែក"> <span>ពិនិត្យកម្រិតភ្នែក (Visual Acuity)</span></label>
+                            <label class="flex items-center space-x-2 space-x-reverse"><input type="checkbox" name="eyeProc" value="ចែកវ៉ែនតាអានសៀវភៅ"> <span>ចែកវ៉ែនតាអានសៀវភៅ (Reading Glasses)</span></label>
                         </div>
                     </div>
 
@@ -205,7 +206,6 @@
                                 </tbody>
                             </table>
                         </div>
-                        <p class="text-[11px] text-slate-400 mt-1 italic">* ធីកលើប្រអប់មុខឈ្មោះថ្នាំ ដើម្បីរាប់បញ្ចូលក្នុងវេជ្ជបញ្ជា។</p>
                     </div>
 
                     <!-- Gospel Outreach & Prayer Section -->
@@ -221,7 +221,7 @@
                     </div>
 
                     <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3.5 rounded-xl shadow-md transition text-sm">
-                        💾 រក្សាទុកការព្យាបាល និងវេជ្ជបញ្ជា
+                        💾 រក្សាទុកការព្យាបាល និងវេជ្ជបញ្ជាទៅកាន់ Cloud
                     </button>
                 </form>
             </div>
@@ -230,10 +230,13 @@
             <div id="section-records" class="bg-white rounded-2xl shadow-sm p-6 sm:p-8 border border-slate-200/80 hidden">
                 <div class="flex flex-col sm:flex-row justify-between items-center mb-6 pb-3 border-b gap-3">
                     <h2 class="text-lg font-bold text-slate-900">បញ្ជីប្រវត្តិអ្នកជំងឺ និងបោះពុម្ពវេជ្ជបញ្ជា</h2>
-                    <button onclick="exportData()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-xl text-xs font-semibold transition">📥 ទាញយកទិន្នន័យ JSON</button>
+                    <div class="flex space-x-2 space-x-reverse">
+                        <button onclick="fetchCloudData()" class="bg-indigo-100 hover:bg-indigo-200 text-indigo-700 px-4 py-2 rounded-xl text-xs font-semibold transition">🔄 ផ្ទុកពី Cloud (Sync)</button>
+                        <button onclick="exportData()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-xl text-xs font-semibold transition">📥 ទាញយក JSON</button>
+                    </div>
                 </div>
                 <div id="recordsList" class="space-y-4">
-                    <p class="text-sm text-slate-400 text-center py-8">មិនទាន់មានទិន្នន័យអ្នកជំងឺនៅឡើយទេ។</p>
+                    <p class="text-sm text-slate-400 text-center py-8">កំពុងទាញយកទិន្នន័យពី Cloud...</p>
                 </div>
             </div>
 
@@ -271,79 +274,79 @@
 
     <!-- Footer -->
     <footer class="bg-white border-t mt-auto py-4 text-center text-xs text-slate-500">
-        បេសកកម្មវេជ្ជសាស្ត្រ ទន្តសាស្ត្រ និងការថែទាំភ្នែក • Medical, Dental & Eye Care Mission
+        បេសកកម្មវេជ្ជសាស្ត្រ ទន្តសាស្ត្រ និងការថែទាំភ្នែក • Cloud Sync Version
     </footer>
 
     <!-- JavaScript Logic -->
     <script>
-        // Master list of all available medicines and supplies grouped
+        // =========================================================================
+        // ដាក់ WEB APP URL របស់អ្នកនៅទីនេះ (ខាងក្រោម)
+        // =========================================================================
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbww805cBzWYgjhgsFBZJbLFxxkNi-WyswT5VG91FADeP9rtq-tlWLBgZNos8RNiv2Mn/exec";
+
         const medicineCatalog = [
             { group: "១. ថ្នាំផ្សះ និងបំបាត់ការឈឺចាប់ (Antibiotics & Pain Relief)", items: [
-                { name: "Amoy MS (Amoxicillin Capsules)" },
-                { name: "Amox 500mg" },
-                { name: "Azithromycin 500mg" },
-                { name: "Metronidazole 500mg" },
-                { name: "Cephalexin 500mg" },
-                { name: "Ciprofloxacin 500mg" },
-                { name: "Doxycycline Capsule" },
-                { name: "Cotrimoxazole" },
-                { name: "Paracetamol 500mg" },
-                { name: "Ibufen 400mg" },
-                { name: "Ibufen 200mg" },
-                { name: "Diclofenac 500mg" },
-                { name: "Mefenamic Acid 500mg" }
+                { name: "Amoy MS (Amoxicillin Capsules)" }, { name: "Amox 500mg" }, { name: "Azithromycin 500mg" },
+                { name: "Metronidazole 500mg" }, { name: "Cephalexin 500mg" }, { name: "Ciprofloxacin 500mg" },
+                { name: "Doxycycline Capsule" }, { name: "Cotrimoxazole" }, { name: "Paracetamol 500mg" },
+                { name: "Ibufen 400mg" }, { name: "Ibufen 200mg" }, { name: "Diclofenac 500mg" }, { name: "Mefenamic Acid 500mg" }
             ]},
             { group: "២. ថ្នាំក្អក ផ្តាសាយ និងអាឡែស៊ី (Cough, Cold & Allergy)", items: [
-                { name: "Dethux" },
-                { name: "Bromhexil 8" },
-                { name: "Nanhexil Syrup" },
-                { name: "Cetirizine USK" },
-                { name: "Chlorpheniramine" },
-                { name: "Alpha Chymotrypsin" },
-                { name: "Dexamethasone 0.5mg" }
+                { name: "Dethux" }, { name: "Bromhexil 8" }, { name: "Nanhexil Syrup" },
+                { name: "Cetirizine USK" }, { name: "Chlorpheniramine" }, { name: "Alpha Chymotrypsin" }, { name: "Dexamethasone 0.5mg" }
             ]},
             { group: "៣. ថ្នាំក្រពះ ពោះវៀន និងរ៉ាំរ៉ៃ (GI & Chronic Conditions)", items: [
-                { name: "Omeprazole / Ottzole" },
-                { name: "Safon" },
-                { name: "Domperidone" },
-                { name: "Spasfon 80mg" },
-                { name: "Tanil" },
-                { name: "Loperamide" },
-                { name: "Neo CMP" },
-                { name: "Albendazole" },
-                { name: "Amlodipine 5mg" },
-                { name: "Metformin 500mg" },
-                { name: "Sitagliptin 100mg" }
+                { name: "Omeprazole / Ottzole" }, { name: "Safon" }, { name: "Domperidone" }, { name: "Spasfon 80mg" },
+                { name: "Tanil" }, { name: "Loperamide" }, { name: "Neo CMP" }, { name: "Albendazole" },
+                { name: "Amlodipine 5mg" }, { name: "Metformin 500mg" }, { name: "Sitagliptin 100mg" }
             ]},
             { group: "៤. ថ្នាំភ្នែក វីតាមីន និងក្រែមលាបស្បែក (Eye, Skin & Vitamins)", items: [
-                { name: "Chloramphenicol Eye Drops" },
-                { name: "Artificial Tears" },
-                { name: "Flucort N Cream" },
-                { name: "NHU Cream" },
-                { name: "Dermadine Antiseptic" },
-                { name: "Vitamin C 500mg" },
-                { name: "Nanvitac 25 Multivitamins" }
+                { name: "Chloramphenicol Eye Drops" }, { name: "Artificial Tears" }, { name: "Flucort N Cream" },
+                { name: "NHU Cream" }, { name: "Dermadine Antiseptic" }, { name: "Vitamin C 500mg" }, { name: "Nanvitac 25 Multivitamins" }
             ]},
             { group: "៥. សម្ភារៈបរិក្ខារពេទ្យ (Medical Supplies & Tools)", items: [
-                { name: "Physio Logique / NSS" },
-                { name: "Compress / Sterile Gauze" },
-                { name: "Tongue Depressor" },
-                { name: "Syringe 10cc" },
-                { name: "Medical Gloves (S & M)" },
-                { name: "Face Mask" },
-                { name: "Plasters / Bandages" },
-                { name: "Chlorhexidine Mouthwash" }
+                { name: "Physio Logique / NSS" }, { name: "Compress / Sterile Gauze" }, { name: "Tongue Depressor" },
+                { name: "Syringe 10cc" }, { name: "Medical Gloves (S & M)" }, { name: "Face Mask" },
+                { name: "Plasters / Bandages" }, { name: "Chlorhexidine Mouthwash" }
             ]}
         ];
 
-        let patients = JSON.parse(localStorage.getItem('mission_pro_v13') || '[]');
-        let queueNumber = patients.length + 1;
-        
-        updateQueueDisplay();
-        updatePatientDropdown();
-        renderRecords();
-        updatePrimaryCareOptions();
-        buildPrescriptionTable();
+        let patients = [];
+        let queueNumber = 1;
+
+        window.onload = function() {
+            fetchCloudData();
+            updatePrimaryCareOptions();
+            buildPrescriptionTable();
+        };
+
+        function fetchCloudData() {
+            document.getElementById('syncStatus').innerText = "🟡 កំពុង Sync...";
+            fetch(WEB_APP_URL + "?action=get")
+                .then(res => res.json())
+                .then(data => {
+                    let patientMap = new Map();
+                    data.forEach(row => {
+                        row.status = (row.diagnosis && row.diagnosis.trim() !== '') ? 'បានព្យាបាលរួច' : 'កំពុងរង់ចាំ';
+                        try {
+                            if(typeof row.prescriptions === 'string') row.prescriptions = JSON.parse(row.prescriptions);
+                        } catch(e) { row.prescriptions = []; }
+                        patientMap.set(row.id, row);
+                    });
+                    
+                    patients = Array.from(patientMap.values()).reverse();
+                    queueNumber = patients.length > 0 ? Math.max(...patients.map(p => Number(p.id))) + 1 : 1;
+                    
+                    updateQueueDisplay();
+                    updatePatientDropdown();
+                    renderRecords();
+                    document.getElementById('syncStatus').innerText = "🟢 តភ្ជាប់ Cloud ជោគជ័យ";
+                })
+                .catch(err => {
+                    console.error(err);
+                    document.getElementById('syncStatus').innerText = "🔴 កំហុសការភ្ជាប់";
+                });
+        }
 
         function buildPrescriptionTable() {
             let tbody = document.getElementById('prescriptionTableBody');
@@ -374,16 +377,10 @@
                     if(med.name.includes("Omeprazole") || med.name.includes("Domperidone")) defTime = "មុនបាយ";
 
                     tr.innerHTML = `
-                        <td class="p-2 text-center">
-                            <input type="checkbox" name="tableMedCheck" value="${med.name}" data-id="${uniqueId}" class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 cursor-pointer">
-                        </td>
+                        <td class="p-2 text-center"><input type="checkbox" name="tableMedCheck" value="${med.name}" data-id="${uniqueId}" class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 cursor-pointer"></td>
                         <td class="p-2 font-medium text-slate-900 whitespace-nowrap overflow-hidden text-ellipsis">${med.name}</td>
-                        <td class="p-2 text-center">
-                            <input type="number" id="qty_${uniqueId}" placeholder="ចំនួន" class="w-16 bg-slate-50 border rounded-lg px-2 py-1 text-center text-xs focus:ring-1 focus:ring-indigo-500 outline-none">
-                        </td>
-                        <td class="p-2">
-                            <input type="text" id="inst_${uniqueId}" value="${defInst}" class="w-full bg-slate-50 border rounded-lg px-2 py-1 text-xs focus:ring-1 focus:ring-indigo-500 outline-none">
-                        </td>
+                        <td class="p-2 text-center"><input type="number" id="qty_${uniqueId}" placeholder="ចំនួន" class="w-16 bg-slate-50 border rounded-lg px-2 py-1 text-center text-xs focus:ring-1 focus:ring-indigo-500 outline-none"></td>
+                        <td class="p-2"><input type="text" id="inst_${uniqueId}" value="${defInst}" class="w-full bg-slate-50 border rounded-lg px-2 py-1 text-xs focus:ring-1 focus:ring-indigo-500 outline-none"></td>
                         <td class="p-2 text-center"><input type="checkbox" id="morn_${uniqueId}" class="w-4 h-4 rounded text-indigo-500 cursor-pointer"></td>
                         <td class="p-2 text-center"><input type="checkbox" id="noon_${uniqueId}" class="w-4 h-4 rounded text-indigo-500 cursor-pointer"></td>
                         <td class="p-2 text-center"><input type="checkbox" id="eve_${uniqueId}" class="w-4 h-4 rounded text-indigo-500 cursor-pointer"></td>
@@ -401,11 +398,7 @@
 
                     const inputs = tr.querySelectorAll('input[type="number"], input[type="text"], select, input[type="checkbox"]:not([name="tableMedCheck"])');
                     const rowCheckbox = tr.querySelector('input[name="tableMedCheck"]');
-                    inputs.forEach(input => {
-                        input.addEventListener('change', () => {
-                            rowCheckbox.checked = true;
-                        });
-                    });
+                    inputs.forEach(input => input.addEventListener('change', () => rowCheckbox.checked = true));
                 });
             });
         }
@@ -419,38 +412,22 @@
             document.getElementById(`tab-${tab}`).className = "px-6 py-3.5 font-semibold text-indigo-900 border-b-2 border-indigo-900 whitespace-nowrap focus:outline-none transition text-sm flex items-center space-x-2 space-x-reverse";
         }
 
-        function updateQueueDisplay() {
-            document.getElementById('queueBadge').innerText = String(queueNumber).padStart(3, '0');
-        }
+        function updateQueueDisplay() { document.getElementById('queueBadge').innerText = String(queueNumber).padStart(3, '0'); }
 
         function updatePrimaryCareOptions() {
             let dept = document.getElementById('rDept').value;
             let pCare = document.getElementById('rPrimaryCare');
-            
             if(dept.includes('Dental')) {
-                pCare.innerHTML = `
-                    <option value="គ្មាន (None)">គ្មានសង្គ្រោះបឋមបន្ទាន់</option>
-                    <option value="លាងសម្អាត និងបិទរបួស (Wound Dressing)">🩹 លាងសម្អាត និងបិទរបួស</option>
-                    <option value="ពិនិត្យសុខភាពមាត់ធ្មេញបឋម">🦷 ពិនិត្យសុខភាពមាត់ធ្មេញបឋម</option>
-                `;
+                pCare.innerHTML = `<option value="គ្មាន (None)">គ្មានសង្គ្រោះបឋមបន្ទាន់</option><option value="លាងសម្អាត និងបិទរបួស (Wound Dressing)">🩹 លាងសម្អាត និងបិទរបួស</option><option value="ពិនិត្យសុខភាពមាត់ធ្មេញបឋម">🦷 ពិនិត្យសុខភាពមាត់ធ្មេញបឋម</option>`;
             } else if(dept.includes('Eye')) {
-                pCare.innerHTML = `
-                    <option value="គ្មាន (None)">គ្មានសង្គ្រោះបឋមបន្ទាន់</option>
-                    <option value="ពិនិត្យកម្រិតភ្នែក (Visual Acuity)">👁️ ពិនិត្យកម្រិតភ្នែក (Visual Acuity)</option>
-                    <option value="បន្តក់ទឹកភ្នែកសិប្បនិម្មិត/លាងភ្នែក">💧 បន្តក់ទឹកភ្នែកសិប្បនិម្មិត/លាងភ្នែក</option>
-                `;
+                pCare.innerHTML = `<option value="គ្មាន (None)">គ្មានសង្គ្រោះបឋមបន្ទាន់</option><option value="ពិនិត្យកម្រិតភ្នែក (Visual Acuity)">👁️ ពិនិត្យកម្រិតភ្នែក (Visual Acuity)</option><option value="បន្តក់ទឹកភ្នែកសិប្បនិម្មិត/លាងភ្នែក">💧 បន្តក់ទឹកភ្នែកសិប្បនិម្មិត/លាងភ្នែក</option>`;
             } else {
-                pCare.innerHTML = `
-                    <option value="គ្មាន (None)">គ្មានសង្គ្រោះបឋមបន្ទាន់</option>
-                    <option value="លាងសម្អាត និងបិទរបួស (Wound Dressing)">🩹 លាងសម្អាត និងបិទរបួស</option>
-                    <option value="ពិនិត្យកម្រិតជាតិស្ករក្នុងឈាម (Blood Glucose)">🩸 វាស់កម្រិតជាតិស្ករក្នុងឈាម</option>
-                `;
+                pCare.innerHTML = `<option value="គ្មាន (None)">គ្មានសង្គ្រោះបឋមបន្ទាន់</option><option value="លាងសម្អាត និងបិទរបួស (Wound Dressing)">🩹 លាងសម្អាត និងបិទរបួស</option><option value="ពិនិត្យកម្រិតជាតិស្ករក្នុងឈាម (Blood Glucose)">🩸 វាស់កម្រិតជាតិស្ករក្នុងឈាម</option>`;
             }
         }
 
         function saveRegistration(e) {
             e.preventDefault();
-            
             let newPatient = {
                 id: queueNumber,
                 timestamp: new Date().toLocaleTimeString('km-KH', { hour: '2-digit', minute: '2-digit' }),
@@ -464,21 +441,15 @@
                 primaryCare: document.getElementById('rPrimaryCare').value,
                 symptoms: document.getElementById('rSymptoms').value,
                 status: 'កំពុងរង់ចាំ',
-                diagnosis: '',
-                dentalProcs: [],
-                dentalToothNo: '',
-                eyeLeft: '',
-                eyeRight: '',
-                eyeRxNotes: '',
-                eyeProcs: [],
-                prescriptions: [],
-                gospelShared: false,
-                prayerNotes: ''
+                diagnosis: '', // Empty diagnosis signals Cloud that it's waiting
+                prescriptions: []
             };
 
+            // Post to cloud for syncing waiting list
+            fetch(WEB_APP_URL, { method: "POST", body: JSON.stringify({ action: "save", patient: newPatient }) })
+                .then(() => fetchCloudData());
+
             patients.unshift(newPatient);
-            localStorage.setItem('mission_pro_v13', JSON.stringify(patients));
-            
             queueNumber++;
             updateQueueDisplay();
             updatePatientDropdown();
@@ -495,7 +466,6 @@
         function updatePatientDropdown() {
             let select = document.getElementById('activePatientSelect');
             let waitingPatients = patients.filter(p => p.status === 'កំពុងរង់ចាំ');
-            
             select.innerHTML = '<option value="">-- ជ្រើសរើសអ្នកជំងឺពីបញ្ជីរង់ចាំ --</option>';
             waitingPatients.forEach(p => {
                 select.innerHTML += `<option value="${p.id}">#${String(p.id).padStart(3, '0')} - ${p.name} (${p.dept})</option>`;
@@ -513,7 +483,6 @@
                 dentalSec.classList.add('hidden');
                 eyeSec.classList.add('hidden');
                 document.getElementById('selectedPatientId').value = '';
-                
                 document.querySelectorAll('input[name="tableMedCheck"]').forEach(cb => cb.checked = false);
                 return;
             }
@@ -522,15 +491,10 @@
             if(p) {
                 document.getElementById('selectedPatientId').value = p.id;
                 infoDiv.innerHTML = `អាយុ: ${p.age}ឆ្នាំ | សង្គ្រោះបឋម: ${p.primaryCare} | រោគសញ្ញា: ${p.symptoms}`;
-                
                 dentalSec.classList.add('hidden');
                 eyeSec.classList.add('hidden');
-
-                if(p.dept.includes('Dental')) {
-                    dentalSec.classList.remove('hidden');
-                } else if(p.dept.includes('Eye')) {
-                    eyeSec.classList.remove('hidden');
-                }
+                if(p.dept.includes('Dental')) dentalSec.classList.remove('hidden');
+                else if(p.dept.includes('Eye')) eyeSec.classList.remove('hidden');
             }
         }
 
@@ -544,64 +508,55 @@
         function saveConsultation(e) {
             e.preventDefault();
             let id = document.getElementById('selectedPatientId').value;
-            
-            if(!id) {
-                alert('សូមជ្រើសរើសអ្នកជំងឺម្នាក់ជាមុនសិន!');
-                return;
-            }
+            if(!id) return alert('សូមជ្រើសរើសអ្នកជំងឺម្នាក់ជាមុនសិន!');
 
             let selectedMeds = [];
-            let checkedBoxes = document.querySelectorAll('input[name="tableMedCheck"]:checked');
-            
-            checkedBoxes.forEach(cb => {
+            document.querySelectorAll('input[name="tableMedCheck"]:checked').forEach(cb => {
                 let uid = cb.getAttribute('data-id');
                 let name = cb.value;
                 let qty = document.getElementById(`qty_${uid}`).value;
                 let inst = document.getElementById(`inst_${uid}`).value;
-                
-                let morn = document.getElementById(`morn_${uid}`).checked;
-                let noon = document.getElementById(`noon_${uid}`).checked;
-                let eve = document.getElementById(`eve_${uid}`).checked;
-                let night = document.getElementById(`night_${uid}`).checked;
+                let morn = document.getElementById(`morn_${uid}`).checked, noon = document.getElementById(`noon_${uid}`).checked, eve = document.getElementById(`eve_${uid}`).checked, night = document.getElementById(`night_${uid}`).checked;
                 let time = document.getElementById(`time_${uid}`).value;
-
                 let timesArr = [];
-                if(morn) timesArr.push('ព្រឹក');
-                if(noon) timesArr.push('ថ្ងៃ');
-                if(eve) timesArr.push('ល្ងាច');
-                if(night) timesArr.push('យប់');
-
+                if(morn) timesArr.push('ព្រឹក'); if(noon) timesArr.push('ថ្ងៃ'); if(eve) timesArr.push('ល្ងាច'); if(night) timesArr.push('យប់');
                 let timeStr = timesArr.length > 0 ? `ពេល: ${timesArr.join(', ')}` : '';
-                
-                let detailStr = `<b>${name}</b> ${qty ? `- ${qty}` : ''} | ${inst} ${timeStr} ${time ? '('+time+')' : ''}`;
-                selectedMeds.push(detailStr);
+                selectedMeds.push(`<b>${name}</b> ${qty ? `- ${qty}` : ''} | ${inst} ${timeStr} ${time ? '('+time+')' : ''}`);
             });
 
             let pIndex = patients.findIndex(item => item.id == id);
             if(pIndex !== -1) {
-                patients[pIndex].status = 'បានព្យាបាលរួច';
-                patients[pIndex].diagnosis = document.getElementById('cDiagnosis').value;
-                patients[pIndex].dentalProcs = getCheckedValues('dentalProc');
-                patients[pIndex].dentalToothNo = document.getElementById('dentalToothNo').value;
-                patients[pIndex].eyeLeft = document.getElementById('eyeLeft').value;
-                patients[pIndex].eyeRight = document.getElementById('eyeRight').value;
-                patients[pIndex].eyeRxNotes = document.getElementById('eyeRxNotes').value;
-                patients[pIndex].eyeProcs = getCheckedValues('eyeProc');
+                let baseDiag = document.getElementById('cDiagnosis').value;
+                let extraDetails = [];
                 
-                patients[pIndex].prescriptions = selectedMeds;
-                
-                patients[pIndex].gospelShared = document.getElementById('gospelShared').checked;
-                patients[pIndex].prayerNotes = document.getElementById('prayerNotes').value;
+                let dProcs = getCheckedValues('dentalProc');
+                let dTooth = document.getElementById('dentalToothNo').value;
+                if(dProcs.length > 0) extraDetails.push(`ធ្មេញ: ${dProcs.join(', ')} ${dTooth ? '(លេខ: '+dTooth+')' : ''}`);
 
-                localStorage.setItem('mission_pro_v13', JSON.stringify(patients));
-                
+                let eLeft = document.getElementById('eyeLeft').value;
+                let eRight = document.getElementById('eyeRight').value;
+                let eNotes = document.getElementById('eyeRxNotes').value;
+                if(eLeft || eRight) extraDetails.push(`ភ្នែកឆ្វេង: ${eLeft}, ភ្នែកស្តាំ: ${eRight} ${eNotes ? '('+eNotes+')' : ''}`);
+
+                if(document.getElementById('gospelShared').checked) extraDetails.push(`✓ បានចែករំលែកដំណឹងល្អ`);
+                let prayer = document.getElementById('prayerNotes').value;
+                if(prayer) extraDetails.push(`អធិស្ឋាន: ${prayer}`);
+
+                // Merge all info into Diagnosis so it saves to Google Sheets seamlessly
+                patients[pIndex].diagnosis = baseDiag + (extraDetails.length > 0 ? " | " + extraDetails.join(' | ') : "");
+                patients[pIndex].prescriptions = selectedMeds;
+                patients[pIndex].status = 'បានព្យាបាលរួច';
+
+                // Send to Cloud
+                fetch(WEB_APP_URL, { method: "POST", body: JSON.stringify({ action: "save", patient: patients[pIndex] }) })
+                    .then(() => fetchCloudData());
+
                 updatePatientDropdown();
                 renderRecords();
                 e.target.reset();
                 document.getElementById('dentalSection').classList.add('hidden');
                 document.getElementById('eyeSection').classList.add('hidden');
                 document.getElementById('activePatientInfo').innerHTML = '';
-                
                 buildPrescriptionTable();
                 document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
 
@@ -614,16 +569,16 @@
             let container = document.getElementById('recordsList');
             document.getElementById('recordCount').innerText = patients.length;
             document.getElementById('statTotal').innerText = patients.length + ' នាក់';
-            
-            let completedCount = patients.filter(p => p.status === 'បានព្យាបាលរួច').length;
-            document.getElementById('statCompleted').innerText = completedCount + ' នាក់';
+            document.getElementById('statCompleted').innerText = patients.filter(p => p.status === 'បានព្យាបាលរួច').length + ' នាក់';
 
             if (patients.length === 0) {
                 container.innerHTML = '<p class="text-sm text-slate-400 text-center py-8">មិនទាន់មានទិន្នន័យអ្នកជំងឺនៅឡើយទេ។</p>';
                 return;
             }
 
-            container.innerHTML = patients.map(p => `
+            container.innerHTML = patients.map(p => {
+                let formattedDiag = (p.diagnosis || 'គ្មាន').split(' | ').join('<br><span class="text-emerald-600">✦</span> ');
+                return `
                 <div class="border border-slate-200 rounded-2xl p-5 bg-slate-50/60 text-sm space-y-3 shadow-xs">
                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b pb-3 gap-2">
                         <div>
@@ -646,10 +601,9 @@
                     </div>
 
                     ${p.diagnosis ? `
-                    <div class="text-xs bg-indigo-50/60 p-3 rounded-xl border border-indigo-100">
-                        <b class="text-indigo-950 font-bold">រោគវិនិច្ឆ័យ:</b> <span class="font-bold text-indigo-900">${p.diagnosis}</span>
-                        ${p.dentalProcs && p.dentalProcs.length > 0 ? `<br><b class="text-amber-900">សេវាធ្មេញ:</b> ${p.dentalProcs.join(', ')} ${p.dentalToothNo ? '(ធ្មេញលេខ: ' + p.dentalToothNo + ')' : ''}` : ''}
-                        ${p.eyeLeft || p.eyeRight ? `<br><b class="text-sky-900">វេជ្ជបញ្ជាវ៉ែនតា:</b> ឆ្វេង [${p.eyeLeft || 'N/A'}] | ស្តាំ [${p.eyeRight || 'N/A'}] ${p.eyeRxNotes ? ' | ' + p.eyeRxNotes : ''}` : ''}
+                    <div class="text-xs bg-indigo-50/60 p-3 rounded-xl border border-indigo-100 leading-relaxed">
+                        <b class="text-indigo-950 font-bold">រោគវិនិច្ឆ័យ និសសេវាកម្ម:</b><br>
+                        <span class="font-bold text-indigo-900">${formattedDiag}</span>
                     </div>` : ''}
 
                     ${p.prescriptions && p.prescriptions.length > 0 ? `
@@ -659,20 +613,14 @@
                             ${p.prescriptions.map(rx => `<li>${rx}</li>`).join('')}
                         </ul>
                     </div>` : ''}
-
-                    ${p.gospelShared || p.prayerNotes ? `
-                    <div class="text-xs bg-amber-50/80 p-3 rounded-xl border border-amber-200">
-                        <b class="text-amber-900 font-bold">✝️ ដំណឹងល្អ និងការអធិស្ឋាន:</b> 
-                        ${p.gospelShared ? '<span class="text-emerald-700 font-bold ml-1">✓ បានចែករំលែកដំណឹងល្អ</span>' : ''}
-                        ${p.prayerNotes ? `<br><b>សំណូមពរអធិស្ឋាន:</b> ${p.prayerNotes}` : ''}
-                    </div>` : ''}
                 </div>
-            `).join('');
+            `}).join('');
         }
 
         function printPrescription(id) {
             let p = patients.find(item => item.id == id);
             if(!p) return;
+            let formattedDiag = (p.diagnosis || 'គ្មាន').split(' | ').join('<br><span style="color: #059669;">✦</span> ');
 
             let printWindow = window.open('', '_blank', 'width=800,height=600');
             printWindow.document.write(`
@@ -685,7 +633,7 @@
                         .header { text-align: center; border-bottom: 2px solid #312e81; padding-bottom: 15px; margin-bottom: 20px; }
                         .info-box { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 15px; background: #f8fafc; padding: 10px 15px; border-radius: 8px; }
                         .details { font-size: 13px; margin-bottom: 20px; line-height: 1.6; }
-                        .diag-box { margin-bottom: 20px; font-size: 13px; background: #eff6ff; padding: 12px 15px; border-radius: 8px; border: 1px solid #bfdbfe; }
+                        .diag-box { margin-bottom: 20px; font-size: 13px; background: #eff6ff; padding: 12px 15px; border-radius: 8px; border: 1px solid #bfdbfe; line-height: 1.8;}
                         
                         table.rx-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 12px; }
                         table.rx-table th { background-color: #f1f5f9; padding: 8px; border: 1px solid #cbd5e1; text-align: left; }
@@ -712,10 +660,8 @@
                     </div>
 
                     <div class="diag-box">
-                        <b style="color: #1e3a8a;">ការធ្វើរោគវិនិច្ឆ័យ (Diagnosis):</b><br>
-                        <span style="font-size: 15px; font-weight: bold; color: #1e293b;">${p.diagnosis || 'គ្មាន'}</span>
-                        ${p.dentalProcs && p.dentalProcs.length > 0 ? `<br><br><b>សេវាកម្មទន្តសាស្ត្រ:</b> ${p.dentalProcs.join(', ')} ${p.dentalToothNo ? '(ធ្មេញលេខ: ' + p.dentalToothNo + ')' : ''}` : ''}
-                        ${p.eyeLeft || p.eyeRight ? `<br><br><b>វេជ្ជបញ្ជាវ៉ែនតា / Eye Glasses:</b><br>- ភ្នែកឆ្វេង (OS): ${p.eyeLeft || 'N/A'}<br>- ភ្នែកស្តាំ (OD): ${p.eyeRight || 'N/A'}<br>${p.eyeRxNotes ? 'ចំណាំ: ' + p.eyeRxNotes : ''}` : ''}
+                        <b style="color: #1e3a8a;">ការធ្វើរោគវិនិច្ឆ័យ និងសេវាកម្ម (Diagnosis & Services):</b><br>
+                        <span style="font-size: 14px; font-weight: bold; color: #1e293b;">${formattedDiag}</span>
                     </div>
 
                     <div style="margin-bottom: 30px;">
@@ -733,24 +679,17 @@
                             <tbody>
                                 ${p.prescriptions.map((rx, idx) => {
                                     let parts = rx.split('|');
-                                    let namePart = parts[0] || rx;
-                                    let instPart = parts[1] || '';
                                     return `
                                     <tr>
                                         <td style="text-align:center; width:30px;">${idx + 1}</td>
-                                        <td>${namePart}</td>
-                                        <td>${instPart}</td>
+                                        <td>${parts[0] || rx}</td>
+                                        <td>${parts[1] || ''}</td>
                                     </tr>`;
                                 }).join('')}
                             </tbody>
                         </table>
                         ` : '<p style="font-size:13px; margin-top:10px;">គ្មានថ្នាំបានផ្តល់ជូន</p>'}
                     </div>
-
-                    ${p.prayerNotes ? `
-                    <div style="margin-bottom: 30px; font-size: 13px; background: #fffbeb; padding: 10px 15px; border-radius: 8px; border: 1px solid #fde68a;">
-                        <b>✝️ ការអធិស្ឋានជូនពរ:</b> ${p.prayerNotes}
-                    </div>` : ''}
 
                     <div class="sign-box">
                         <div style="text-align: center;">
@@ -769,16 +708,14 @@
             `);
             printWindow.document.close();
             printWindow.focus();
-            setTimeout(() => {
-                printWindow.print();
-            }, 500);
+            setTimeout(() => { printWindow.print(); }, 500);
         }
 
         function exportData() {
             let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(patients, null, 2));
             let downloadAnchor = document.createElement('a');
             downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", "medical_mission_data.json");
+            downloadAnchor.setAttribute("download", "mission_cloud_data.json");
             document.body.appendChild(downloadAnchor);
             downloadAnchor.click();
             downloadAnchor.remove();
